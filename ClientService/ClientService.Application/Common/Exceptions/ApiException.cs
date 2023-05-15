@@ -3,18 +3,31 @@ using ClientService.Application.Common.Extentions;
 
 namespace ClientService.Application.Common.Exceptions;
 
-public class ApiException
+public class ApiException : Exception
 {
-    private readonly ResponseCode _responseCode;
-
+    private int _errorCode;
+    
+    private string _error;
+    
+    private string _message;
+    
     public ApiException(ResponseCode responseCode)
     {
-        _responseCode = responseCode;
+        _errorCode = (int) responseCode;
+        _error = responseCode.ToString();
+        _message = responseCode.GetDescription();
+    }
+    
+    public ApiException(int errorCode, string error, string message)
+    {
+        _errorCode = errorCode;
+        _error = error;
+        _message = message;
     }
 
-    public int ErrorCode => (int)_responseCode;
+    public int ErrorCode => _errorCode;
 
-    public string Error => _responseCode.ToString();
+    public string Error => _error;
 
-    public string Message => _responseCode.GetDescription();
+    public string ErrorMessage => _message;
 }

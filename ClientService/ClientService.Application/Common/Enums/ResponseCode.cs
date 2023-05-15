@@ -8,5 +8,14 @@ public enum ResponseCode
 
     [Description("Validation Error")] ErrorValidation = 2,
 
-    [Description("Mapping Error")] ErrorMapping = 3
+    [Description("Mapping Error")] ErrorMapping = 3,
+    
+    // File 
+    
+    [Description("File not found")] ErrorFileNotFound = 10,
+
+    [Description("Delete file failed")] ErrorDeleteFileFailed = 11,
+    
+    [Description("Upload file failed")] ErrorUploadFileFailed = 12
+
 }

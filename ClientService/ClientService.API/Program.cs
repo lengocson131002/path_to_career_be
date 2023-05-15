@@ -1,5 +1,6 @@
 using ClientService.API;
 using ClientService.Application;
+using ClientService.Application.Common.Exceptions;
 using ClientService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 

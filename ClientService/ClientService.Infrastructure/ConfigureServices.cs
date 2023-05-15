@@ -35,6 +35,9 @@ public static class ConfigureServices
         initializer.InitializeAsync().Wait();
         initializer.SeedAsync().Wait();
         
+        // Storage
+        services.AddScoped<IStorageService, StorageService>();
+        
         return services;
     }
 }
