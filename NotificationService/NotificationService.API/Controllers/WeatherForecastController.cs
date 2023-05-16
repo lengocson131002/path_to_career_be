@@ -1,14 +1,12 @@
-using ClientService.Application.Greeting.Commands;
-using ClientService.Application.Greeting.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ClientService.API.Controllers;
+namespace NotificationService.API.Controllers;
 
 [ApiController]
-[Route("/api/v1/test")]
-public class WeatherForecastController : ApiControllerBase
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries =
+    private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
@@ -31,11 +29,4 @@ public class WeatherForecastController : ApiControllerBase
             })
             .ToArray();
     }
-    
-    [HttpPost("greeting")]
-    public async Task<ActionResult<GreetingResponse>> Greeting([FromBody] GreetingRequest request)
-    {
-        return await Mediator.Send(request);
-    }
-    
 }

@@ -1,4 +1,5 @@
 using ClientService.Application.Common.Interfaces;
+using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Infrastructure.Persistence;
@@ -18,4 +19,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         optionsBuilder.AddInterceptors(_saveChangesInterceptor);
     }
+
+    public DbSet<Account> Accounts => Set<Account>();
 }

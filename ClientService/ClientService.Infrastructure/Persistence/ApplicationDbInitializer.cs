@@ -1,3 +1,5 @@
+using ClientService.Application.Common.Interfaces;
+using ClientService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -6,13 +8,14 @@ namespace ClientService.Infrastructure.Persistence;
 public class ApplicationDbInitializer
 {
     private readonly ILogger<ApplicationDbInitializer> _logger;
-
     private readonly ApplicationDbContext _context;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ApplicationDbInitializer(ILogger<ApplicationDbInitializer> logger, ApplicationDbContext context)
+    public ApplicationDbInitializer(ILogger<ApplicationDbInitializer> logger, ApplicationDbContext context, IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _context = context;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task InitializeAsync()
@@ -32,9 +35,21 @@ public class ApplicationDbInitializer
         }
     }
 
-    public Task SeedAsync()
+    public async Task SeedAsync()
     {
-        return Task.CompletedTask;
+        try
+        {
+            if (!_context.Accounts.Any())
+            {
+                // Seeding account data
+                await _unitOfWork.AccountRepository.AddRange(AccountSeeding.DefaultAccounts);
+                await _unitOfWork.SaveChangesAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Seeding database error {0}", ex.Message);
+        }
     }
 
 }

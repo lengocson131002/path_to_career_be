@@ -1,4 +1,3 @@
-using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Files.Commands;
 using ClientService.Application.Files.Models;
 using ClientService.Application.Files.Queries;

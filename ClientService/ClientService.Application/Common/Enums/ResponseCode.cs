@@ -16,6 +16,17 @@ public enum ResponseCode
 
     [Description("Delete file failed")] ErrorDeleteFileFailed = 11,
     
-    [Description("Upload file failed")] ErrorUploadFileFailed = 12
+    [Description("Upload file failed")] ErrorUploadFileFailed = 12,
+    
+    // Auth
+        
+    [Description("Invalid email or password")] AuthErrorInvalidEmailOrPassword = 20,
+    
+    [Description("Invalid refresh token")] AuthErrorInvalidRefreshToken = 21,
+    
+    [Description("Invalid google ID token")] AuthErrorInvalidGoogleIdToken = 22,
 
+    
+    // Account
+    [Description("Email existed")] AccountErrorEmailExisted = 30,
 }

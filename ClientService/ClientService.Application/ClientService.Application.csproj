@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Folder Include="Accounts\Queries" />
+        <Folder Include="Auth\Queries" />
         <Folder Include="Common\Security" />
         <Folder Include="Greeting\Queries" />
         <Folder Include="Protos" />
@@ -21,8 +23,10 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+        <PackageReference Include="Google.Apis.Auth" />
         <PackageReference Include="MediatR" />
         <PackageReference Include="Microsoft.AspNetCore.Http" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.Extensions.Configuration" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
         <PackageReference Include="Microsoft.Extensions.Logging" />

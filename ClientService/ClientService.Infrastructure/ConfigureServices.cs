@@ -16,7 +16,7 @@ public static class ConfigureServices
     {
         // Testing
         services.AddScoped<IGreetingService, GreetingService>();
-        
+        services.AddHttpContextAccessor();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
@@ -37,6 +37,12 @@ public static class ConfigureServices
         
         // Storage
         services.AddScoped<IStorageService, StorageService>();
+        
+        // Jwt service
+        services.AddScoped<IJwtService, JwtService>();
+        
+        // Google authentication
+        services.AddScoped<IGoogleAuthService, GoogleAuthService>();
         
         return services;
     }

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Common\Security" />
+      <Folder Include="Notifications\Commands" />
+      <Folder Include="Notifications\Handlers" />
+      <Folder Include="Notifications\Models" />
+      <Folder Include="Notifications\Queries" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+      <PackageReference Include="FluentValidation" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+      <PackageReference Include="MediatR" />
+      <PackageReference Include="Microsoft.AspNetCore.Http" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" />
+      <PackageReference Include="Microsoft.Extensions.Logging" />
+      <PackageReference Include="System.Linq.Dynamic.Core" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NotificationService.Domain\NotificationService.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

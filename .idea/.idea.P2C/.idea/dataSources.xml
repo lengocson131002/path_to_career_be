@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/p2c_identity</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="p2c@localhost" uuid="c597d4fa-e482-498b-8d17-687e6c1f7cbd">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/p2c</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

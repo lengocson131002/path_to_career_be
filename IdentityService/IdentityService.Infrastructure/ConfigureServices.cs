@@ -18,7 +18,6 @@ public static class ConfigureServices
         IConfiguration configuration)
     {
         services.AddHttpContextAccessor();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>();

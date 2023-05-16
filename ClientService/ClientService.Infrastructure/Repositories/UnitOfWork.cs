@@ -1,4 +1,5 @@
 using ClientService.Application.Common.Interfaces;
+using ClientService.Domain.Entities;
 using ClientService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ namespace ClientService.Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
+    private IBaseRepository<Account>? _accountRepository;
     private readonly ApplicationDbContext _dbContext;
     private bool _disposed;
 
@@ -13,6 +15,9 @@ public class UnitOfWork : IUnitOfWork
     {
         _dbContext = dbContext;
     }
+
+    public IBaseRepository<Account> AccountRepository =>
+        _accountRepository ??= new BaseRepository<Account>(_dbContext);
 
     public int SaveChanges()
     {

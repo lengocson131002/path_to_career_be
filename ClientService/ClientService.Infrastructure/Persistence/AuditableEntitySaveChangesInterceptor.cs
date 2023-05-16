@@ -1,3 +1,4 @@
+using ClientService.Application.Common.Interfaces;
 using ClientService.Domain.Entities;
 using ClientService.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -41,13 +42,13 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
         {
             if (entry.State == EntityState.Added)
             {
-                entry.Entity.CreatedBy = _currentUserService.Principal;
+                entry.Entity.CreatedBy = _currentUserService.CurrentPrincipal;
                 entry.Entity.CreatedAt = DateTimeOffset.UtcNow;
             }
 
             if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
             {
-                entry.Entity.UpdatedBy = _currentUserService.Principal;
+                entry.Entity.UpdatedBy = _currentUserService.CurrentPrincipal;
                 entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
             }
         }
