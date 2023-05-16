@@ -61,6 +61,9 @@ public static class ConfigureServices
         // Grpc
         services.AddGrpc();
         
+        // Google Auth
+        services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+        
         return services;
     }
 

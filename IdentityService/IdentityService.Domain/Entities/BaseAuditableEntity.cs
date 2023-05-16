@@ -10,7 +10,7 @@ public class BaseAuditableEntity
     
     public string? UpdatedBy { get; set; }
     
-    public DateTimeOffset DeletedAt { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
     
     public string? DeletedBy { get; set; }
 }

@@ -2,14 +2,14 @@ namespace IdentityService.Application.Auth.Models;
 
 public class TokenResponse
 {
-    public string Token { get; private set; }
+    public string AccessToken { get; private set; }
 
     public string RefreshToken { get; private set; }
 
 
-    public TokenResponse(string token, string refreshToken)
+    public TokenResponse(string accessToken, string refreshToken)
     {
-        Token = token;
+        AccessToken = accessToken;
         RefreshToken = refreshToken;
     }
 }

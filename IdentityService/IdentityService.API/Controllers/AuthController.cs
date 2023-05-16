@@ -18,7 +18,14 @@ public class AuthController : ApiControllerBase
     
     [HttpPost("refresh")]
     [AllowAnonymous]
-    public async Task<ActionResult<TokenResponse>> Login([FromBody] RefreshTokenRequest request)
+    public async Task<ActionResult<TokenResponse>> RefreshToken([FromBody] RefreshTokenRequest request)
+    {
+        return await Mediator.Send(request);
+    }
+    
+    [HttpPost("google-login")]
+    [AllowAnonymous]
+    public async Task<ActionResult<TokenResponse>> LoginWithGoogle([FromBody] LoginWithGoogleRequest request)
     {
         return await Mediator.Send(request);
     }

@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Google.Apis.Auth" />
         <PackageReference Include="Google.Protobuf" />
         <PackageReference Include="Grpc.AspNetCore" />
         <PackageReference Include="Grpc.Net.Client" />

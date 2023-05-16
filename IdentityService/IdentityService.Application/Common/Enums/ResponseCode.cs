@@ -15,6 +15,9 @@ public enum ResponseCode
     
     [Description("Invalid refresh token")] AuthErrorInvalidRefreshToken = 11,
     
+    [Description("Invalid google ID token")] AuthErrorInvalidGoogleIdToken = 12,
+
+    
     // Account
     [Description("Username existed")] AccountErrorUsernameExisted = 12,
 
