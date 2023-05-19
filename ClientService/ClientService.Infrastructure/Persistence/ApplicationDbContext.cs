@@ -23,14 +23,13 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>()
-            .HasMany(acc => acc.Majors)
-            .WithMany(m => m.Accounts)
-            .UsingEntity<AccountMajor>();
+            .HasMany(acc => acc.Reviews)
+            .WithOne(review => review.Account);
     }
 
     public DbSet<Account> Accounts => Set<Account>();
     
     public DbSet<Major> Majors => Set<Major>();
 
-    public DbSet<AccountMajor> AccountMajors => Set<AccountMajor>();
+    public DbSet<Review> Reviews => Set<Review>();
 }

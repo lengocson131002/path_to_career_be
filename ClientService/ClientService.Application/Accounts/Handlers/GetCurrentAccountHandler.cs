@@ -1,7 +1,9 @@
+using System.Linq.Expressions;
 using AutoMapper;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Accounts.Queries;
 using ClientService.Application.Common.Interfaces;
+using ClientService.Domain.Entities;
 using MediatR;
 
 namespace ClientService.Application.Accounts.Handlers;
@@ -21,14 +23,12 @@ public class GetCurrentAccountHandler : IRequestHandler<GetCurrentAccountRequest
 
     public async Task<AccountDetailResponse> Handle(GetCurrentAccountRequest request, CancellationToken cancellationToken)
     {
-        var account = await _currentAccountService.GetCurrentAccount();
-        
-        // Load major
-        var majorQuery =
-            await _unitOfWork.AccountMajorRepository.GetAsync(item => item.AccountId == account.Id);
+        var account = await _currentAccountService.GetCurrentAccount(new List<Expression<Func<Account, object>>>()
+        {
+            acc => acc.Majors,
+            acc => acc.Reviews
+        });
 
-        account.Majors = majorQuery.Select(item => item.Major).ToList(); 
-            
         return _mapper.Map<AccountDetailResponse>(account);
     }
 }

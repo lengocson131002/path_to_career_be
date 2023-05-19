@@ -32,7 +32,10 @@ public class UpdateAccountHandler : IRequestHandler<UpdateAccountRequest, Accoun
 
     public async Task<AccountResponse> Handle(UpdateAccountRequest request, CancellationToken cancellationToken)
     {
-        var account = await _currentAccountService.GetCurrentAccount();
+        var account = await _currentAccountService.GetCurrentAccount( new List<Expression<Func<Account, object>>>()
+        {
+            acc => acc.Majors
+        });
 
         account.PhoneNumber = request.PhoneNumber ?? account.PhoneNumber;
         account.FullName = request.FullName ?? account.FullName;
@@ -40,11 +43,7 @@ public class UpdateAccountHandler : IRequestHandler<UpdateAccountRequest, Accoun
 
         if (request.MajorCodes != null)
         {
-            var accMajorsQuery =
-                await _unitOfWork.AccountMajorRepository.GetAsync(item => item.AccountId == account.Id);
-            var accMajors = accMajorsQuery.AsEnumerable();
-            await _unitOfWork.AccountMajorRepository.DeleteRange(accMajors);
-
+            account.Majors.Clear();
             foreach (var majorCode in request.MajorCodes)
                 if (!string.IsNullOrWhiteSpace(majorCode))
                 {
@@ -57,11 +56,7 @@ public class UpdateAccountHandler : IRequestHandler<UpdateAccountRequest, Accoun
                         Code = majorCode.ToCode()
                     };
 
-                    await _unitOfWork.AccountMajorRepository.AddAsync(new AccountMajor()
-                    {
-                        Account = account,
-                        Major = major
-                    });
+                   account.Majors.Add(major);
                 }
         }
 

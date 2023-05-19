@@ -1,7 +1,9 @@
+using Amazon.Runtime;
 using ClientService.Application.Accounts.Commands;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Accounts.Queries;
 using ClientService.Application.Common.Models.Response;
+using ClientService.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +18,20 @@ public class AccountController : ApiControllerBase
     public async Task<ActionResult<AccountDetailResponse>> GetCurrentAccount()
     {
         return await Mediator.Send(new GetCurrentAccountRequest());
+    }
+    
+    [HttpGet]
+    [Authorize]
+    public async Task<ActionResult<PaginationResponse<Account, AccountResponse>>> GetAllAccounts([FromQuery] GetAllAccountRequest request)
+    {
+        return await Mediator.Send(request);
+    }
+    
+    [HttpGet("{id}")]
+    [Authorize]
+    public async Task<ActionResult<AccountDetailResponse>> GetAccount([FromRoute] long id)
+    {
+        return await Mediator.Send(new GetAccountRequest(id));
     }
     
     [HttpPost]

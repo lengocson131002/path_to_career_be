@@ -9,7 +9,7 @@ public class UnitOfWork : IUnitOfWork
 {
     private IBaseRepository<Account>? _accountRepository;
     private IBaseRepository<Major>? _majorRepository;
-    private IBaseRepository<AccountMajor>? _accountMajorRepository;
+    private IBaseRepository<Review>? _reviewRepository;
     
     private readonly ApplicationDbContext _dbContext;
     private bool _disposed;
@@ -24,8 +24,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IBaseRepository<Major> MajorRepository => _majorRepository ??= new BaseRepository<Major>(_dbContext);
 
-    public IBaseRepository<AccountMajor> AccountMajorRepository =>
-        _accountMajorRepository ??= new BaseRepository<AccountMajor>(_dbContext);
+    public IBaseRepository<Review> ReviewRepository => _reviewRepository ??= new BaseRepository<Review>(_dbContext);
 
     public int SaveChanges()
     {

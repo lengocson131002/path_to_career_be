@@ -7,8 +7,8 @@ public interface IUnitOfWork
     IBaseRepository<Account> AccountRepository { get; }
 
     IBaseRepository<Major> MajorRepository { get; }
-
-    IBaseRepository<AccountMajor> AccountMajorRepository { get; }
+    
+    IBaseRepository<Review> ReviewRepository { get; }
 
     int SaveChanges();
 

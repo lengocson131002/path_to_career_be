@@ -31,7 +31,7 @@ public abstract class PaginationRequest<T> where T : class
 
     public SortDirection SortDir { get; set; } = SortDirection.Asc;
 
-    protected abstract Expression<Func<T, bool>> GetExpressions();
+    public abstract Expression<Func<T, bool>> GetExpressions();
 
     public Func<IQueryable<T>, IOrderedQueryable<T>>? GetOrder()
     {

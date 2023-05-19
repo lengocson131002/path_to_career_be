@@ -34,4 +34,14 @@ public enum ResponseCode
     
     [Description("Password and Confirm password are not matched")] AccountErrorPasswordNotMatched = 31,
 
+    [Description("Account not found")] AccountErrorNotFound = 32,
+
+    // Review
+    [Description("You had reviewed this account before")] ReviewErrorExisted = 40,
+
+    [Description("Review not found")] ReviewErrorNotFound = 41,
+    
+    [Description("Can not review yourself")] ReviewErrorCannotReviewYourself = 42
+
+    
 }

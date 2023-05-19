@@ -9,5 +9,6 @@ public interface IApplicationDbContext
 
     DbSet<Major> Majors { get; }
     
-    DbSet<AccountMajor> AccountMajors { get; }
+    DbSet<Review> Reviews { get; }
+    
 }

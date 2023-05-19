@@ -20,4 +20,6 @@ public class Account : BaseAuditableEntity
     public string? Description { get; set; }
 
     public IList<Major> Majors { get; set; } = default!;
+
+    public IList<Review> Reviews { get; set; } = default!;
 }

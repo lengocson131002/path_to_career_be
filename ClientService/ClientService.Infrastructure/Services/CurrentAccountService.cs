@@ -28,7 +28,8 @@ public class CurrentAccountService : ICurrentAccountService
         var accountQuery =
             await _unitOfWork.AccountRepository.GetAsync(
                 predicate: acc => acc.Email.ToLower().Equals(currentPrincipal.ToLower()),
-                includes: includes);
+                includes: includes, 
+                disableTracking: false);
 
         var account = accountQuery.FirstOrDefault();
 

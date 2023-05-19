@@ -11,8 +11,9 @@
         <Folder Include="Common\Security" />
         <Folder Include="Greeting\Queries" />
         <Folder Include="Majors\Commands" />
-        <Folder Include="Majors\Handlers" />
-        <Folder Include="Majors\Queries" />
+        <Folder Include="Models\Commands" />
+        <Folder Include="Models\Handlers" />
+        <Folder Include="Models\Queries" />
         <Folder Include="Protos" />
     </ItemGroup>
 
@@ -26,6 +27,7 @@
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
         <PackageReference Include="Google.Apis.Auth" />
+        <PackageReference Include="LinqKit" />
         <PackageReference Include="MediatR" />
         <PackageReference Include="Microsoft.AspNetCore.Http" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" />

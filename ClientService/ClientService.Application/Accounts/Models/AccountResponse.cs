@@ -15,4 +15,6 @@ public class AccountResponse
     public string FullName { get; set; } = default!;
     
     public string? Description { get; set; }
+    
+    public double Score { get; set; }
 }
