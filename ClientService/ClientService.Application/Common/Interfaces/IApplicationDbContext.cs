@@ -6,4 +6,8 @@ namespace ClientService.Application.Common.Interfaces;
 public interface IApplicationDbContext
 {
     DbSet<Account> Accounts { get; }
+
+    DbSet<Major> Majors { get; }
+    
+    DbSet<AccountMajor> AccountMajors { get; }
 }

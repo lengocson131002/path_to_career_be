@@ -5,14 +5,14 @@ namespace ClientService.Application.Accounts.Models;
 public class AccountResponse
 {
     public long Id { get; set; }
+
+    public string Email { get; set; } = default!;
     
-    public string Username { get; set; }
-    
-    public string? EmailAddress { get; set; }
+    public string PhoneNumber { get; set; } = default!;
 
     public Role Role { get; set; }
     
-    public string? FirstName { get; set; }
+    public string FullName { get; set; } = default!;
     
-    public string? LastName { get; set; }
+    public string? Description { get; set; }
 }

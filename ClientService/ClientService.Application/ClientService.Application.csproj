@@ -7,10 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Accounts\Queries" />
         <Folder Include="Auth\Queries" />
         <Folder Include="Common\Security" />
         <Folder Include="Greeting\Queries" />
+        <Folder Include="Majors\Commands" />
+        <Folder Include="Majors\Handlers" />
+        <Folder Include="Majors\Queries" />
         <Folder Include="Protos" />
     </ItemGroup>
 

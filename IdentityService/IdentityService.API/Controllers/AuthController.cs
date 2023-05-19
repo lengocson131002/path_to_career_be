@@ -10,7 +10,7 @@ namespace IdentityService.API.Controllers;
 public class AuthController : ApiControllerBase
 {
     [HttpPost("login")]
-    [AllowAnonymous]
+    [Authorize]
     public async Task<ActionResult<TokenResponse>> Login([FromBody] LoginRequest request)
     {
         return await Mediator.Send(request);

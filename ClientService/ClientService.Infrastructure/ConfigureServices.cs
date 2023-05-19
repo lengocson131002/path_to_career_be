@@ -1,11 +1,13 @@
+using System.Text;
 using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Greeting.Models;
 using ClientService.Infrastructure.Persistence;
 using ClientService.Infrastructure.Repositories;
 using ClientService.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ClientService.Infrastructure;
 
@@ -19,6 +21,7 @@ public static class ConfigureServices
         services.AddHttpContextAccessor();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
+        services.AddScoped<ICurrentAccountService, CurrentAccountService>();
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
         services.AddDbContext<ApplicationDbContext>(options =>
@@ -43,6 +46,23 @@ public static class ConfigureServices
         
         // Google authentication
         services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+        
+        // Authentication, Authorization
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                // Validate JWT Token
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidAudience = configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"] ?? throw new ArgumentException("Jwt:Key is required")))
+                };
+            });
         
         return services;
     }

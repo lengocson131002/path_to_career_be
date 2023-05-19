@@ -5,7 +5,11 @@ namespace ClientService.Application.Common.Interfaces;
 public interface IUnitOfWork
 {
     IBaseRepository<Account> AccountRepository { get; }
-        
+
+    IBaseRepository<Major> MajorRepository { get; }
+
+    IBaseRepository<AccountMajor> AccountMajorRepository { get; }
+
     int SaveChanges();
 
     Task<int> SaveChangesAsync();

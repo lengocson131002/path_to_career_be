@@ -20,5 +20,17 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         optionsBuilder.AddInterceptors(_saveChangesInterceptor);
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Account>()
+            .HasMany(acc => acc.Majors)
+            .WithMany(m => m.Accounts)
+            .UsingEntity<AccountMajor>();
+    }
+
     public DbSet<Account> Accounts => Set<Account>();
+    
+    public DbSet<Major> Majors => Set<Major>();
+
+    public DbSet<AccountMajor> AccountMajors => Set<AccountMajor>();
 }

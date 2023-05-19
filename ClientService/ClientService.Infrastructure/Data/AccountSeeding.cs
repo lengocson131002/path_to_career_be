@@ -1,4 +1,5 @@
 using ClientService.Domain.Entities;
+using ClientService.Domain.Enums;
 
 namespace ClientService.Infrastructure.Data;
 
@@ -11,7 +12,8 @@ public static class AccountSeeding
             Email = "admin@gmail.com",
             Password = "Aqswde123@",
             CreatedAt = DateTimeOffset.UtcNow,
-            UpdatedAt = DateTimeOffset.UtcNow
+            UpdatedAt = DateTimeOffset.UtcNow,
+            Role = Role.Admin
         }
     };
 }

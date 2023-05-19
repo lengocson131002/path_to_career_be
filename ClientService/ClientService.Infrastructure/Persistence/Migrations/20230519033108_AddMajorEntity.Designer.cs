@@ -3,6 +3,7 @@ using System;
 using ClientService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClientService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230519033108_AddMajorEntity")]
+    partial class AddMajorEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,21 +77,6 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("ClientService.Domain.Entities.AccountMajor", b =>
-                {
-                    b.Property<long>("AccountId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("MajorId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("AccountId", "MajorId");
-
-                    b.HasIndex("MajorId");
-
-                    b.ToTable("AccountMajors");
-                });
-
             modelBuilder.Entity("ClientService.Domain.Entities.Major", b =>
                 {
                     b.Property<long>("Id")
@@ -96,6 +84,9 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("AccountId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -125,26 +116,21 @@ namespace ClientService.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccountId");
+
                     b.ToTable("Majors");
                 });
 
-            modelBuilder.Entity("ClientService.Domain.Entities.AccountMajor", b =>
+            modelBuilder.Entity("ClientService.Domain.Entities.Major", b =>
                 {
-                    b.HasOne("ClientService.Domain.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ClientService.Domain.Entities.Account", null)
+                        .WithMany("Majors")
+                        .HasForeignKey("AccountId");
+                });
 
-                    b.HasOne("ClientService.Domain.Entities.Major", "Major")
-                        .WithMany()
-                        .HasForeignKey("MajorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Major");
+            modelBuilder.Entity("ClientService.Domain.Entities.Account", b =>
+                {
+                    b.Navigation("Majors");
                 });
 #pragma warning restore 612, 618
         }
