@@ -20,6 +20,7 @@ public class UploadFileHandler : IRequestHandler<UploadFileRequest, UploadFileRe
     public async Task<UploadFileResponse> Handle(UploadFileRequest request, CancellationToken cancellationToken)
     {
         var uploadedFileName = await _storageService.UploadFileAsync(request.File);
-        return new UploadFileResponse(uploadedFileName);
+        
+        return new UploadFileResponse(uploadedFileName, _storageService.GetObjectUrl(uploadedFileName));
     }
 }
