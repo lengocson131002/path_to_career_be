@@ -8,6 +8,7 @@ namespace ClientService.Infrastructure.Repositories;
 public class UnitOfWork : IUnitOfWork
 {
     private IBaseRepository<Account>? _accountRepository;
+    private IBaseRepository<Post>? _postRepository;
     private readonly ApplicationDbContext _dbContext;
     private bool _disposed;
 
@@ -18,6 +19,9 @@ public class UnitOfWork : IUnitOfWork
 
     public IBaseRepository<Account> AccountRepository =>
         _accountRepository ??= new BaseRepository<Account>(_dbContext);
+
+    public IBaseRepository<Post> PostRepository =>
+        _postRepository ??= new BaseRepository<Post>(_dbContext);
 
     public int SaveChanges()
     {

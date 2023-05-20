@@ -21,4 +21,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     }
 
     public DbSet<Account> Accounts => Set<Account>();
+
+    public DbSet<Post> Posts => Set<Post>();
 }

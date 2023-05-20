@@ -5,6 +5,7 @@ namespace ClientService.Application.Common.Interfaces;
 public interface IUnitOfWork
 {
     IBaseRepository<Account> AccountRepository { get; }
+    IBaseRepository<Post> PostRepository { get; }
         
     int SaveChanges();
 
