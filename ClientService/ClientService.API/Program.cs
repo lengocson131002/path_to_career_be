@@ -31,10 +31,23 @@ builder.Services.AddSwaggerGen(opt =>
         BearerFormat = "JWT",
         Scheme = "bearer"
     });
-    
+
     // Filter security requirement
     opt.OperationFilter<AuthorizationOperationFilter>();
 });
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 
 builder.Services.ConfigureApiServices(builder.Configuration);
 
@@ -49,6 +62,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowOrigin");
 }
 
 app.UseHttpsRedirection();
