@@ -6,6 +6,7 @@ public interface IUnitOfWork
 {
     IBaseRepository<Account> AccountRepository { get; }
     IBaseRepository<Post> PostRepository { get; }
+    IBaseRepository<PostApplication> PostApplicationRepository { get; }
         
     int SaveChanges();
 

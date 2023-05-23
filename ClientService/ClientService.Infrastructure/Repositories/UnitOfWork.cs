@@ -9,6 +9,7 @@ public class UnitOfWork : IUnitOfWork
 {
     private IBaseRepository<Account>? _accountRepository;
     private IBaseRepository<Post>? _postRepository;
+    private IBaseRepository<PostApplication>? _postApplicationRepository;
     private readonly ApplicationDbContext _dbContext;
     private bool _disposed;
 
@@ -22,6 +23,9 @@ public class UnitOfWork : IUnitOfWork
 
     public IBaseRepository<Post> PostRepository =>
         _postRepository ??= new BaseRepository<Post>(_dbContext);
+
+    public IBaseRepository<PostApplication> PostApplicationRepository =>
+        _postApplicationRepository ??= new BaseRepository<PostApplication>(_dbContext);
 
     public int SaveChanges()
     {

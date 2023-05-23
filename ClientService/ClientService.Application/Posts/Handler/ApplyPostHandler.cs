@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using ClientService.Application.Common.Enums;
-using ClientService.Application.Common.Exceptions;
 using ClientService.Application.Common.Interfaces;
 using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
@@ -15,18 +13,14 @@ using System.Threading.Tasks;
 
 namespace ClientService.Application.Posts.Handler
 {
-    public class CreatePostHandler : IRequestHandler<CreatePostRequest, PostResponse>
+    public class ApplyPostHandler : IRequestHandler<ApplyPostRequest, ApplyPostResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<CreatePostHandler> _logger;
+        private readonly ILogger<ApplyPostHandler> _logger;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
 
-        public CreatePostHandler(
-            IUnitOfWork unitOfWork, 
-            ILogger<CreatePostHandler> logger, 
-            IMapper mapper,
-            ICurrentUserService currentUserService)
+        public ApplyPostHandler(IUnitOfWork unitOfWork, ILogger<ApplyPostHandler> logger, IMapper mapper, ICurrentUserService currentUserService)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -34,22 +28,23 @@ namespace ClientService.Application.Posts.Handler
             _currentUserService = currentUserService;
         }
 
-        public async Task<PostResponse> Handle(CreatePostRequest request, CancellationToken cancellationToken)
+        public async Task<ApplyPostResponse> Handle(ApplyPostRequest request, CancellationToken cancellationToken)
         {
             Account? account = _currentUserService.GetCurrentAccount();
-            var post = _mapper.Map<Post>(request);
+            var postApplication = _mapper.Map<PostApplication>(request);
             if (account == null)
             {
-                post.AccountId = 2;
+                postApplication.ApplierId = request.ApplierId;
                 //throw new ApiException(ResponseCode.AccountPostNotFound);
-            } else
-            {
-                post.Account = account;
             }
-           
-            await _unitOfWork.PostRepository.AddAsync(post);
+            else
+            {
+                postApplication.Applier = account;
+            }
+
+            await _unitOfWork.PostApplicationRepository.AddAsync(postApplication);
             await _unitOfWork.SaveChangesAsync();
-            return _mapper.Map<PostResponse>(post);
+            return _mapper.Map<ApplyPostResponse>(postApplication);
         }
     }
 }

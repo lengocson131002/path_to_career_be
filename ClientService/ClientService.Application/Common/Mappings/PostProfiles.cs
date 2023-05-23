@@ -18,6 +18,9 @@ namespace ClientService.Application.Common.Mappings
 
             CreateMap<UpdatePostRequest, Post>();
 
+            CreateMap<ApplyPostRequest, PostApplication>();
+            CreateMap<PostApplication, ApplyPostResponse>();
+
         }
     }
 }

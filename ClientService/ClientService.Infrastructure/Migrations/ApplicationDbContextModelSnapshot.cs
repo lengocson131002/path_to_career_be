@@ -3,20 +3,17 @@ using System;
 using ClientService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ClientService.Infrastructure.Persistence.Migrations
+namespace ClientService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230517155729_Initial")]
-    partial class Initial
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,37 +66,6 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("ClientService.Domain.Entities.Media", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Media");
-                });
-
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
                 {
                     b.Property<long>("Id")
@@ -107,6 +73,9 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("AcceptedAccountId")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("AccountId")
                         .HasColumnType("bigint");
@@ -147,8 +116,9 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.Property<long>("MajorId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("MediaId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("MediaUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("ServiceType")
                         .IsRequired()
@@ -168,20 +138,90 @@ namespace ClientService.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MediaId");
+                    b.HasIndex("AcceptedAccountId");
+
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("ClientService.Domain.Entities.PostApplication", b =>
+                {
+                    b.Property<long>("PostId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ApplierId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("PostId", "ApplierId");
+
+                    b.HasIndex("ApplierId");
+
+                    b.ToTable("PostApplications");
+                });
+
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
                 {
-                    b.HasOne("ClientService.Domain.Entities.Media", "Media")
+                    b.HasOne("ClientService.Domain.Entities.Account", "AcceptedAccount")
                         .WithMany()
-                        .HasForeignKey("MediaId")
+                        .HasForeignKey("AcceptedAccountId");
+
+                    b.HasOne("ClientService.Domain.Entities.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Media");
+                    b.Navigation("AcceptedAccount");
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("ClientService.Domain.Entities.PostApplication", b =>
+                {
+                    b.HasOne("ClientService.Domain.Entities.Account", "Applier")
+                        .WithMany("PostApplications")
+                        .HasForeignKey("ApplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClientService.Domain.Entities.Post", "Post")
+                        .WithMany("PostApplications")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Applier");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("ClientService.Domain.Entities.Account", b =>
+                {
+                    b.Navigation("PostApplications");
+                });
+
+            modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
+                {
+                    b.Navigation("PostApplications");
                 });
 #pragma warning restore 612, 618
         }

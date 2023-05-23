@@ -16,7 +16,7 @@ namespace ClientService.Domain.Entities
         [ForeignKey("AccountId")]
         public virtual Account Account { get; set; }
         [ForeignKey("AcceptedAccountId")]
-        public virtual Account AcceptedAccount { get; set; }
+        public virtual Account? AcceptedAccount { get; set; }
         public PostStatus Status { get; set; }
         public long MajorId { get; set; }
         public string JobPosition { get; set; }
@@ -28,5 +28,6 @@ namespace ClientService.Domain.Entities
         public string MediaUrl { get; set; }
         public string? CVStlye { get; set; }
         public string? CVTyle { get; set; }
+        public List<PostApplication> PostApplications { get; } = new();
     }
 }

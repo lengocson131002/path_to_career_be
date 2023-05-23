@@ -9,11 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ClientService.Infrastructure.Persistence.Migrations
+namespace ClientService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230522100119_UpdatePostModelV4")]
-    partial class UpdatePostModelV4
+    [Migration("20230523101456_UpdatModel")]
+    partial class UpdatModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,6 +148,39 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("ClientService.Domain.Entities.PostApplication", b =>
+                {
+                    b.Property<long>("PostId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ApplierId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("PostId", "ApplierId");
+
+                    b.HasIndex("ApplierId");
+
+                    b.ToTable("PostApplications");
+                });
+
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
                 {
                     b.HasOne("ClientService.Domain.Entities.Account", "AcceptedAccount")
@@ -163,6 +196,35 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.Navigation("AcceptedAccount");
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("ClientService.Domain.Entities.PostApplication", b =>
+                {
+                    b.HasOne("ClientService.Domain.Entities.Account", "Applier")
+                        .WithMany("PostApplications")
+                        .HasForeignKey("ApplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClientService.Domain.Entities.Post", "Post")
+                        .WithMany("PostApplications")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Applier");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("ClientService.Domain.Entities.Account", b =>
+                {
+                    b.Navigation("PostApplications");
+                });
+
+            modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
+                {
+                    b.Navigation("PostApplications");
                 });
 #pragma warning restore 612, 618
         }

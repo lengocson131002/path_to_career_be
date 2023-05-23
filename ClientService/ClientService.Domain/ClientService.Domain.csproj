@@ -12,4 +12,8 @@
         <Folder Include="Exceptions" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="ServiceStack.Interfaces" />
+    </ItemGroup>
+
 </Project>

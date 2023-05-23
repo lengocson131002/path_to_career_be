@@ -7,4 +7,5 @@ public interface IApplicationDbContext
 {
     DbSet<Account> Accounts { get; }
     DbSet<Post> Posts { get; }
+    DbSet<PostApplication> PostApplications { get; }
 }

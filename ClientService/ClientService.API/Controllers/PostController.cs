@@ -15,6 +15,12 @@ namespace ClientService.API.Controllers
             return await Mediator.Send(request);
         }
 
+        [HttpPost("application")]
+        public async Task<ActionResult<ApplyPostResponse>> Apply(ApplyPostRequest request)
+        {
+            return await Mediator.Send(request);
+        }
+
         [HttpPost("{id}")]
         public async Task<ActionResult<PostResponse>> Update(UpdatePostRequest request)
         {

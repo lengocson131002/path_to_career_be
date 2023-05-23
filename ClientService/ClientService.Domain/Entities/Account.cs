@@ -13,4 +13,5 @@ public class Account : BaseAuditableEntity
     public Role Role { get; set; }
     
     public string? FullName { get; set; }
+    public List<PostApplication> PostApplications { get; } = new();
 }

@@ -20,7 +20,15 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         optionsBuilder.AddInterceptors(_saveChangesInterceptor);
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<PostApplication>()
+            .HasKey(nameof(PostApplication.PostId), nameof(PostApplication.ApplierId));
+    }
+
     public DbSet<Account> Accounts => Set<Account>();
 
     public DbSet<Post> Posts => Set<Post>();
+
+    public DbSet<PostApplication> PostApplications => Set<PostApplication>();
 }

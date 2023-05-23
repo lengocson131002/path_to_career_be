@@ -29,4 +29,7 @@ public enum ResponseCode
     
     // Account
     [Description("Email existed")] AccountErrorEmailExisted = 30,
+
+    //Post
+    [Description("User uploading post is not found")] AccountPostNotFound = 41,
 }
