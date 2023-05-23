@@ -12,6 +12,11 @@ namespace ClientService.Domain.Entities
     {
         public long Id { get; set; }
         public long AccountId { get; set; }
+        public long? AcceptedAccountId { get; set; }
+        [ForeignKey("AccountId")]
+        public virtual Account Account { get; set; }
+        [ForeignKey("AcceptedAccountId")]
+        public virtual Account AcceptedAccount { get; set; }
         public PostStatus Status { get; set; }
         public long MajorId { get; set; }
         public string JobPosition { get; set; }

@@ -3,6 +3,7 @@ using System;
 using ClientService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClientService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522094205_UpdatePostModelV3")]
+    partial class UpdatePostModelV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +76,6 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long?>("AcceptedAccountId")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("AccountId")
                         .HasColumnType("bigint");
@@ -138,28 +138,7 @@ namespace ClientService.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AcceptedAccountId");
-
-                    b.HasIndex("AccountId");
-
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
-                {
-                    b.HasOne("ClientService.Domain.Entities.Account", "AcceptedAccount")
-                        .WithMany()
-                        .HasForeignKey("AcceptedAccountId");
-
-                    b.HasOne("ClientService.Domain.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcceptedAccount");
-
-                    b.Navigation("Account");
                 });
 #pragma warning restore 612, 618
         }

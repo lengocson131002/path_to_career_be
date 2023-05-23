@@ -14,5 +14,27 @@ namespace ClientService.API.Controllers
         {
             return await Mediator.Send(request);
         }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<PostResponse>> Update(UpdatePostRequest request)
+        {
+            return await Mediator.Send(request);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<DeletePostResponse>> Delete([FromRoute] long id)
+        {
+            DeletePostRequest request = new DeletePostRequest();
+            request.Id = id;
+            return await Mediator.Send(request);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PostResponse>> GetDetail([FromRoute] long id)
+        {
+            GetDetailPostRequest request = new GetDetailPostRequest();
+            request.Id = id;
+            return await Mediator.Send(request);
+        }
     }
 }

@@ -29,8 +29,8 @@ namespace ClientService.Application.Posts.Commands
         public DateTime FinishTime { get; set; }
         public string Content { get; set; }
         public int SupportCount { get; set; }
-        public IFormFile? File { get; set; }
-        public string? CVStlye { get; set; }
+        public string MediaUrl { get; set; }
+        public string? CVStyle { get; set; }
         public string? CVTyle { get; set; }
     }
 }

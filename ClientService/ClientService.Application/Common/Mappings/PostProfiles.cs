@@ -15,6 +15,9 @@ namespace ClientService.Application.Common.Mappings
         public PostProfiles() {
             CreateMap<CreatePostRequest, Post>();
             CreateMap<Post, PostResponse>();
+
+            CreateMap<UpdatePostRequest, Post>();
+
         }
     }
 }
