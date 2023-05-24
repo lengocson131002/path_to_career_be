@@ -41,7 +41,7 @@ namespace ClientService.Application.Posts.Handler
             var postApplications = await _unitOfWork.PostApplicationRepository.GetAsync(x => x.PostId == request.PostId);
             if (postApplications?.Any() != true)
             {
-                throw new ApiException(ResponseCode.PostApplicationPostNotFound);
+                throw new ApiException(ResponseCode.PostApplicationNotFound);
             }
 
             post.AcceptedAccountId = postApplications.FirstOrDefault().ApplierId;

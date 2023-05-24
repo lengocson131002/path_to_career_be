@@ -30,6 +30,15 @@ namespace ClientService.API.Controllers
             return await Mediator.Send(request);
         }
 
+        [HttpGet("{postId}/applications/{applicationId}")]
+        public async Task<ActionResult<PostApplicationResponse>> GetDetail([FromRoute] long postId, [FromRoute] long applicationId)
+        {
+            GetDetailPostApplicationRequest request = new GetDetailPostApplicationRequest();
+            request.ApplicationId = applicationId;
+            request.PostId = postId;
+            return await Mediator.Send(request);
+        }
+
         [HttpPost("{postId}/applications/{applicationId}/accept")]
         public async Task<ActionResult<StatusResponse>> Accept([FromRoute] long postId, [FromRoute] long applicationId)
         {
