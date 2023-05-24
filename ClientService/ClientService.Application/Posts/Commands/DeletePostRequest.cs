@@ -1,4 +1,5 @@
-﻿using ClientService.Application.Posts.Models;
+﻿using ClientService.Application.Common.Models.Response;
+using ClientService.Application.Posts.Models;
 using ClientService.Domain.Enums;
 using FluentValidation;
 using MediatR;
@@ -16,7 +17,7 @@ namespace ClientService.Application.Posts.Commands
         {
         }
     }
-    public class DeletePostRequest : IRequest<DeletePostResponse>
+    public class DeletePostRequest : IRequest<StatusResponse>
     {
         public long Id { get; set; }
     }

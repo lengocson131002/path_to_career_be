@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClientService.Application.Posts.Models
 {
-    public class ApplyPostResponse
+    public class PostApplicationResponse
     {
         public long Id { get; set; }
         public long ApplierId { get; set; }
@@ -16,5 +16,4 @@ namespace ClientService.Application.Posts.Models
         public string? ExperienceDescription { get; set; }
         public string? MethodDescription { get; set; }
     }
-    
 }

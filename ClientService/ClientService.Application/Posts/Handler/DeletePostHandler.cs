@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ClientService.Application.Common.Interfaces;
+using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Domain.Entities;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ClientService.Application.Posts.Handler
 {
-    public class DeletePostHandler : IRequestHandler<DeletePostRequest, DeletePostResponse>
+    public class DeletePostHandler : IRequestHandler<DeletePostRequest, StatusResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<DeletePostHandler> _logger;
@@ -26,18 +27,16 @@ namespace ClientService.Application.Posts.Handler
             _mapper = mapper;
         }
 
-        public async Task<DeletePostResponse> Handle(DeletePostRequest request, CancellationToken cancellationToken)
+        public async Task<StatusResponse> Handle(DeletePostRequest request, CancellationToken cancellationToken)
         {
-            DeletePostResponse response = new DeletePostResponse();
             var post = await _unitOfWork.PostRepository.GetByIdAsync(request.Id);
             if (post == null)
             {
-                return response;
+                return new StatusResponse(false);
             }
             await _unitOfWork.PostRepository.DeleteAsync(post);
             await _unitOfWork.SaveChangesAsync();
-            response.Success = true;
-            return response;
+            return new StatusResponse(true);
         }
     }
 }

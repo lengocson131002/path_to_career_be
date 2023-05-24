@@ -23,7 +23,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<PostApplication>()
+            .HasIndex(e => e.Id)
+            .IsUnique();
+        modelBuilder.Entity<PostApplication>()
             .HasKey(nameof(PostApplication.PostId), nameof(PostApplication.ApplierId));
+       
     }
 
     public DbSet<Account> Accounts => Set<Account>();
