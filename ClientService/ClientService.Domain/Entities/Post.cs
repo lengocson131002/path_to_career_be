@@ -20,10 +20,12 @@ namespace ClientService.Domain.Entities
         [Column(TypeName = "varchar(20)")]
         public PostStatus Status { get; set; }
         public long MajorId { get; set; }
+        [ForeignKey("MajorId")]
+        public Major Major { get; set; }
         public string JobPosition { get; set; }
         public string JobLevel { get; set; }
-        //[Column(TypeName = "varchar(20)")]
-        //public ServiceType ServiceType { get; set; }
+        [Column(TypeName = "varchar(20)")]
+        public ServiceType ServiceType { get; set; }
         public DateTime FinishTime { get; set; }
         public string Content { get; set; }
         public int SupportCount { get; set; }

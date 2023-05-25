@@ -15,21 +15,22 @@ namespace ClientService.Infrastructure.Services;
 public class StorageService : IStorageService
 {
     private readonly string _bucketName;
+    private readonly string _region;
     private readonly ILogger<StorageService> _logger;
     private readonly IAmazonS3 _s3Client;
 
     public StorageService(IConfiguration configuration, ILogger<StorageService> logger)
     {
         _logger = logger;
-        _bucketName = configuration["AWS:S3:BucketName"] ??
-                      throw new ArgumentException("AWS:S3:BucketName is required");
-        var region = configuration["AWS:S3:Region"] ?? throw new ArgumentException("AWS:S3:Region is required");
+        _bucketName = configuration["AWS:S3:BucketName"] ?? throw new ArgumentException("AWS:S3:BucketName is required");
+        _region = configuration["AWS:S3:Region"] ?? throw new ArgumentException("AWS:S3:Region is required");
+        
         var accessKey = configuration["AWS:S3:AccessKey"] ??
                         throw new ArgumentException("AWS:S3:AccessKey is required");
         var secretKey = configuration["AWS:S3:SecretKey"] ??
                         throw new ArgumentException("AWS:S3:SecretKey is required");
 
-        _s3Client = new AmazonS3Client(accessKey, secretKey, RegionEndpoint.GetBySystemName(region));
+        _s3Client = new AmazonS3Client(accessKey, secretKey, RegionEndpoint.GetBySystemName(_region));
     }
 
     public async Task<byte[]> DownloadFileAsync(string fileName)
@@ -152,5 +153,10 @@ public class StorageService : IStorageService
         };
 
         return Task.FromResult(_s3Client.GetPreSignedURL(urlRequest));
+    }
+
+    public string GetObjectUrl(string fileName)
+    {
+        return $"https://{_bucketName}.s3.{_region}.amazonaws.com/{fileName}";
     }
 }

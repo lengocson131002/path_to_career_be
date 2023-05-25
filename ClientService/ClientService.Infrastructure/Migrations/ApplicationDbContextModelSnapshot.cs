@@ -22,6 +22,21 @@ namespace ClientService.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("AccountMajor", b =>
+                {
+                    b.Property<long>("AccountsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("MajorsId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AccountsId", "MajorsId");
+
+                    b.HasIndex("MajorsId");
+
+                    b.ToTable("AccountMajor");
+                });
+
             modelBuilder.Entity("ClientService.Domain.Entities.Account", b =>
                 {
                     b.Property<long>("Id")
@@ -42,14 +57,22 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("text");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Role")
@@ -64,6 +87,45 @@ namespace ClientService.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("ClientService.Domain.Entities.Major", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Majors");
                 });
 
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
@@ -122,6 +184,10 @@ namespace ClientService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ServiceType")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("varchar(20)");
@@ -140,6 +206,8 @@ namespace ClientService.Infrastructure.Migrations
                     b.HasIndex("AcceptedAccountId");
 
                     b.HasIndex("AccountId");
+
+                    b.HasIndex("MajorId");
 
                     b.ToTable("Posts");
                 });
@@ -198,6 +266,69 @@ namespace ClientService.Infrastructure.Migrations
                     b.ToTable("PostApplications");
                 });
 
+            modelBuilder.Entity("ClientService.Domain.Entities.Review", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<long>("ReviewerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("Score")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("ReviewerId");
+
+                    b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("AccountMajor", b =>
+                {
+                    b.HasOne("ClientService.Domain.Entities.Account", null)
+                        .WithMany()
+                        .HasForeignKey("AccountsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClientService.Domain.Entities.Major", null)
+                        .WithMany()
+                        .HasForeignKey("MajorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
                 {
                     b.HasOne("ClientService.Domain.Entities.Account", "AcceptedAccount")
@@ -210,9 +341,17 @@ namespace ClientService.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ClientService.Domain.Entities.Major", "Major")
+                        .WithMany()
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AcceptedAccount");
 
                     b.Navigation("Account");
+
+                    b.Navigation("Major");
                 });
 
             modelBuilder.Entity("ClientService.Domain.Entities.PostApplication", b =>
@@ -234,9 +373,32 @@ namespace ClientService.Infrastructure.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("ClientService.Domain.Entities.Review", b =>
+                {
+                    b.HasOne("ClientService.Domain.Entities.Account", "Account")
+                        .WithMany("IsReview")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClientService.Domain.Entities.Account", "Reviewer")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ReviewerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Reviewer");
+                });
+
             modelBuilder.Entity("ClientService.Domain.Entities.Account", b =>
                 {
+                    b.Navigation("IsReview");
+
                     b.Navigation("PostApplications");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>

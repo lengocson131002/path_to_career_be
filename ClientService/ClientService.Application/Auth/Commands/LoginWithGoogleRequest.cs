@@ -1,4 +1,5 @@
 using ClientService.Application.Auth.Models;
+using ClientService.Domain.Enums;
 using FluentValidation;
 using MediatR;
 

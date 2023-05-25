@@ -8,6 +8,10 @@ public interface IUnitOfWork
     IBaseRepository<Post> PostRepository { get; }
     IBaseRepository<PostApplication> PostApplicationRepository { get; }
         
+    IBaseRepository<Major> MajorRepository { get; }
+    
+    IBaseRepository<Review> ReviewRepository { get; }
+
     int SaveChanges();
 
     Task<int> SaveChangesAsync();

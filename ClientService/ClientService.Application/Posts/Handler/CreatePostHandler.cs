@@ -36,16 +36,7 @@ namespace ClientService.Application.Posts.Handler
 
         public async Task<PostResponse> Handle(CreatePostRequest request, CancellationToken cancellationToken)
         {
-            Account? account = _currentUserService.GetCurrentAccount();
             var post = _mapper.Map<Post>(request);
-            if (account == null)
-            {
-                post.AccountId = 2;
-                //throw new ApiException(ResponseCode.AccountPostNotFound);
-            } else
-            {
-                post.Account = account;
-            }
            
             await _unitOfWork.PostRepository.AddAsync(post);
             await _unitOfWork.SaveChangesAsync();

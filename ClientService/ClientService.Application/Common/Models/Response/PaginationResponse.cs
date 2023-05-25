@@ -21,8 +21,7 @@ public class PaginationResponse<TEntity, TResponse> where TEntity : class where 
         Items = items.Select(mapper).ToList();
     }
 
-    public PaginationResponse(IQueryable<TEntity> source, int count, int pageNumber, int pageSize,
-        Func<TEntity, TResponse> mapper)
+    public PaginationResponse(IQueryable<TEntity> source, int pageNumber, int pageSize, Func<TEntity, TResponse> mapper)
     {
         TotalCount = source.Count();
         PageSize = pageSize;

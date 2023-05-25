@@ -4,8 +4,6 @@ using System.Text;
 using ClientService.Application.Common.Enums;
 using ClientService.Application.Common.Exceptions;
 using ClientService.Application.Common.Interfaces;
-using ClientService.Domain.Entities;
-using ClientService.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,29 +14,27 @@ public class CurrentUserService : ICurrentUserService
 {
     private readonly IHttpContextAccessor _accessor;
     private readonly IConfiguration _configuration;
-
     public CurrentUserService(IHttpContextAccessor accessor, IConfiguration configuration)
     {
         _accessor = accessor;
         _configuration = configuration;
     }
 
-    public Account? GetCurrentAccount()
+    // Get current login email
+    public string? CurrentPrincipal
     {
-        var identity = _accessor?.HttpContext?.User.Identity as ClaimsIdentity;
-        if (identity == null || !identity.IsAuthenticated) return null;
-
-        var claims = identity.Claims;
-
-        return new Account
+        get
         {
-            Email = claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value ?? string.Empty,
-            FullName = claims.FirstOrDefault(o => o.Type == ClaimTypes.Name)?.Value ?? string.Empty,
-            Role = Enum.Parse<Role>(claims.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value)
-        };
-    }
+            var identity = _accessor?.HttpContext?.User.Identity as ClaimsIdentity;
+            if (identity == null || !identity.IsAuthenticated) return null;
 
-    public string? CurrentPrincipal => GetCurrentAccount()?.Email;
+            var claims = identity.Claims;
+
+            var email = claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value ?? null;
+
+            return email;
+        }
+    }
 
     public ClaimsPrincipal GetCurrentPrincipalFromToken(string token)
     {

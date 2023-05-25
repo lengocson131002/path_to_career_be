@@ -20,7 +20,8 @@ namespace ClientService.Application.Posts.Commands
     }
     public class CreatePostRequest : IRequest<PostResponse>
     {
-       
+
+        public long AccountId { get; set; }
         public PostStatus Status { get; set; }
         public long MajorId { get; set; }
         public string JobPosition { get; set; }

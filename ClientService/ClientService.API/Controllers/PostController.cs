@@ -24,10 +24,9 @@ namespace ClientService.API.Controllers
             return await Mediator.Send(request);
         }
 
-        [HttpGet("{postId}/applications")]
-        public async Task<ActionResult<PostApplicationPageResponse>> GetAllInPage([FromRoute] long postId, [FromQuery] GetAllApplicationRequest request)
+        [HttpGet("{PostId}/applications")]
+        public async Task<ActionResult<PostApplicationPageResponse>> GetAllInPage([FromQuery] GetAllApplicationRequest request)
         {
-            request.PostId = postId;
             return await Mediator.Send(request);
         }
 

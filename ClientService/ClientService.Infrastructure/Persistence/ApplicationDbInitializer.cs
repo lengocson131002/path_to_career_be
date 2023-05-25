@@ -1,3 +1,4 @@
+using System.Linq.Dynamic.Core;
 using ClientService.Application.Common.Interfaces;
 using ClientService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -43,8 +44,14 @@ public class ApplicationDbInitializer
             {
                 // Seeding account data
                 await _unitOfWork.AccountRepository.AddRange(AccountSeeding.DefaultAccounts);
-                await _unitOfWork.SaveChangesAsync();
             }
+
+            if (!_context.Majors.Any())
+            {
+                await _unitOfWork.MajorRepository.AddRange(MajorSeeding.Majors);
+            }
+            
+            await _unitOfWork.SaveChangesAsync();
         }
         catch (Exception ex)
         {

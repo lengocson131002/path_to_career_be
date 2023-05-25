@@ -7,10 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Accounts\Queries" />
         <Folder Include="Auth\Queries" />
         <Folder Include="Common\Security" />
         <Folder Include="Greeting\Queries" />
+        <Folder Include="Majors\Commands" />
+        <Folder Include="Models\Commands" />
+        <Folder Include="Models\Handlers" />
+        <Folder Include="Models\Queries" />
         <Folder Include="Protos" />
     </ItemGroup>
 
@@ -19,11 +22,19 @@
     </ItemGroup>
 
     <ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" />
+		
         <PackageReference Include="AutoMapper" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
         <PackageReference Include="Google.Apis.Auth" />
+        <PackageReference Include="LinqKit" />
         <PackageReference Include="MediatR" />
         <PackageReference Include="Microsoft.AspNetCore.Http" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" />

@@ -10,6 +10,8 @@ public enum ResponseCode
 
     [Description("Mapping Error")] ErrorMapping = 3,
     
+    [Description("Unauthorized")] Unauthorized = 4,
+
     // File 
     
     [Description("File not found")] ErrorFileNotFound = 10,
@@ -29,6 +31,19 @@ public enum ResponseCode
     
     // Account
     [Description("Email existed")] AccountErrorEmailExisted = 30,
+    
+    [Description("Password and Confirm password are not matched")] AccountErrorPasswordNotMatched = 31,
+
+    [Description("Account not found")] AccountErrorNotFound = 32,
+
+    // Review
+    [Description("You had reviewed this account before")] ReviewErrorExisted = 40,
+
+    [Description("Review not found")] ReviewErrorNotFound = 41,
+    
+    [Description("Can not review yourself")] ReviewErrorCannotReviewYourself = 42,
+
+    
 
     //Post
     [Description("User uploading post is not found")] AccountPostNotFound = 41,

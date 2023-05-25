@@ -27,7 +27,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             .IsUnique();
         modelBuilder.Entity<PostApplication>()
             .HasKey(nameof(PostApplication.PostId), nameof(PostApplication.ApplierId));
-       
+
+        modelBuilder.Entity<Account>()
+             .HasMany(account => account.Reviews).WithOne(review => review.Reviewer);
+        modelBuilder.Entity<Account>()
+             .HasMany(account => account.IsReview).WithOne(review => review.Account);
+        ;
     }
 
     public DbSet<Account> Accounts => Set<Account>();
@@ -35,4 +40,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Post> Posts => Set<Post>();
 
     public DbSet<PostApplication> PostApplications => Set<PostApplication>();
+    
+    public DbSet<Major> Majors => Set<Major>();
+
+    public DbSet<Review> Reviews => Set<Review>();
 }

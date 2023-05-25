@@ -15,4 +15,6 @@ public interface IStorageService
     Task<bool> IsFileExists(string fileName, string versionId = "");
 
     Task<string> GetPresignedUrlAsync(string fileName);
+    
+    string GetObjectUrl(string fileName);
 }
