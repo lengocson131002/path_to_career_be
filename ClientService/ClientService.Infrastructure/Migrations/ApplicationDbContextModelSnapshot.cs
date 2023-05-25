@@ -80,11 +80,13 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("CVStlye")
-                        .HasColumnType("text");
+                    b.Property<string>("CVStyle")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
 
-                    b.Property<string>("CVTyle")
-                        .HasColumnType("text");
+                    b.Property<string>("CVType")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -120,12 +122,9 @@ namespace ClientService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ServiceType")
+                    b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("SupportCount")
                         .HasColumnType("integer");

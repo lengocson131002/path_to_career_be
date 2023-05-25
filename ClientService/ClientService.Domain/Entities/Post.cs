@@ -17,17 +17,21 @@ namespace ClientService.Domain.Entities
         public virtual Account Account { get; set; }
         [ForeignKey("AcceptedAccountId")]
         public virtual Account? AcceptedAccount { get; set; }
+        [Column(TypeName = "varchar(20)")]
         public PostStatus Status { get; set; }
         public long MajorId { get; set; }
         public string JobPosition { get; set; }
         public string JobLevel { get; set; }
-        public string ServiceType { get; set; }
+        //[Column(TypeName = "varchar(20)")]
+        //public ServiceType ServiceType { get; set; }
         public DateTime FinishTime { get; set; }
         public string Content { get; set; }
         public int SupportCount { get; set; }
         public string MediaUrl { get; set; }
-        public string? CVStlye { get; set; }
-        public string? CVTyle { get; set; }
+        [Column(TypeName = "varchar(20)")]
+        public CVStyle CVStyle { get; set; }
+        [Column(TypeName = "varchar(20)")]
+        public CVType CVType { get; set; }
         public List<PostApplication> PostApplications { get; } = new();
     }
 }

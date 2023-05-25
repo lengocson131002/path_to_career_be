@@ -45,6 +45,7 @@ namespace ClientService.Application.Posts.Handler
             }
 
             post.AcceptedAccountId = postApplications.FirstOrDefault().ApplierId;
+            post.Status = Domain.Enums.PostStatus.Done;
             await _unitOfWork.PostRepository.UpdateAsync(post);
             await _unitOfWork.SaveChangesAsync();
             return new StatusResponse(true);

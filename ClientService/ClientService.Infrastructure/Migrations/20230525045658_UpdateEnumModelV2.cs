@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClientService.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialmodel : Migration
+    public partial class UpdateEnumModelV2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,18 +41,17 @@ namespace ClientService.Infrastructure.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AccountId = table.Column<long>(type: "bigint", nullable: false),
-                    AcceptedAccountId = table.Column<long>(type: "bigint", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
+                    AcceptedAccountId = table.Column<long>(type: "bigint", nullable: true),
+                    Status = table.Column<string>(type: "varchar(20)", nullable: false),
                     MajorId = table.Column<long>(type: "bigint", nullable: false),
                     JobPosition = table.Column<string>(type: "text", nullable: false),
                     JobLevel = table.Column<string>(type: "text", nullable: false),
-                    ServiceType = table.Column<string>(type: "text", nullable: false),
                     FinishTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
                     SupportCount = table.Column<int>(type: "integer", nullable: false),
                     MediaUrl = table.Column<string>(type: "text", nullable: false),
-                    CVStlye = table.Column<string>(type: "text", nullable: true),
-                    CVTyle = table.Column<string>(type: "text", nullable: true),
+                    CVStlye = table.Column<string>(type: "varchar(20)", nullable: false),
+                    CVType = table.Column<string>(type: "varchar(20)", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -67,8 +66,7 @@ namespace ClientService.Infrastructure.Migrations
                         name: "FK_Posts_Accounts_AcceptedAccountId",
                         column: x => x.AcceptedAccountId,
                         principalTable: "Accounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Posts_Accounts_AccountId",
                         column: x => x.AccountId,
@@ -83,6 +81,12 @@ namespace ClientService.Infrastructure.Migrations
                 {
                     PostId = table.Column<long>(type: "bigint", nullable: false),
                     ApplierId = table.Column<long>(type: "bigint", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SupportCount = table.Column<long>(type: "bigint", nullable: false),
+                    FeePerCount = table.Column<decimal>(type: "numeric", nullable: false),
+                    ExperienceDescription = table.Column<string>(type: "text", nullable: true),
+                    MethodDescription = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -111,6 +115,12 @@ namespace ClientService.Infrastructure.Migrations
                 name: "IX_PostApplications_ApplierId",
                 table: "PostApplications",
                 column: "ApplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostApplications_Id",
+                table: "PostApplications",
+                column: "Id",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_AcceptedAccountId",

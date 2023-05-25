@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClientService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230523101456_UpdatModel")]
-    partial class UpdatModel
+    [Migration("20230525050143_UPdateEnumModelV3")]
+    partial class UPdateEnumModelV3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,11 +83,13 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("CVStlye")
-                        .HasColumnType("text");
+                    b.Property<string>("CVStyle")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
 
-                    b.Property<string>("CVTyle")
-                        .HasColumnType("text");
+                    b.Property<string>("CVType")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -123,12 +125,9 @@ namespace ClientService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ServiceType")
+                    b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("SupportCount")
                         .HasColumnType("integer");
@@ -168,6 +167,24 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("text");
 
+                    b.Property<string>("ExperienceDescription")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("FeePerCount")
+                        .HasColumnType("numeric");
+
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("MethodDescription")
+                        .HasColumnType("text");
+
+                    b.Property<long>("SupportCount")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -177,6 +194,9 @@ namespace ClientService.Infrastructure.Migrations
                     b.HasKey("PostId", "ApplierId");
 
                     b.HasIndex("ApplierId");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.ToTable("PostApplications");
                 });

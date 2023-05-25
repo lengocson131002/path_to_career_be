@@ -25,12 +25,12 @@ namespace ClientService.Application.Posts.Commands
         public long MajorId { get; set; }
         public string JobPosition { get; set; }
         public string JobLevel { get; set; }
-        public string ServiceType { get; set; }
+        public ServiceType ServiceType { get; set; }
         public DateTime FinishTime { get; set; }
         public string Content { get; set; }
         public int SupportCount { get; set; }
         public string MediaUrl { get; set; }
-        public string? CVStyle { get; set; }
-        public string? CVTyle { get; set; }
+        public CVStyle CVStyle { get; set; }
+        public CVType CVType { get; set; }
     }
 }

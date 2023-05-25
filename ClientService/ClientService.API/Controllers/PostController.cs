@@ -2,6 +2,7 @@
 using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
+using ClientService.Application.Posts.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClientService.API.Controllers

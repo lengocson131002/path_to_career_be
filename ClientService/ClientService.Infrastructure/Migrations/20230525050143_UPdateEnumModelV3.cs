@@ -5,25 +5,24 @@
 namespace ClientService.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateIdPostApplication : Migration
+    public partial class UPdateEnumModelV3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<long>(
-                name: "Id",
-                table: "PostApplications",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L);
+            migrationBuilder.RenameColumn(
+                name: "CVStlye",
+                table: "Posts",
+                newName: "CVStyle");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Id",
-                table: "PostApplications");
+            migrationBuilder.RenameColumn(
+                name: "CVStyle",
+                table: "Posts",
+                newName: "CVStlye");
         }
     }
 }

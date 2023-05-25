@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientService.Application.Posts.Commands
+namespace ClientService.Application.Posts.Queries
 {
     public class GetDetailPostApplicationRequest : IRequest<PostApplicationResponse>
     {

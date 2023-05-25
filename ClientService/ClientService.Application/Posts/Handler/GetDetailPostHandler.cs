@@ -2,6 +2,7 @@
 using ClientService.Application.Common.Interfaces;
 using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
+using ClientService.Application.Posts.Queries;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
