@@ -3,6 +3,7 @@ using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Application.Posts.Queries;
+using ClientService.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClientService.API.Controllers
@@ -24,9 +25,12 @@ namespace ClientService.API.Controllers
             return await Mediator.Send(request);
         }
 
-        [HttpGet("{PostId}/applications")]
-        public async Task<ActionResult<PostApplicationPageResponse>> GetAllInPage([FromQuery] GetAllApplicationRequest request)
+        [HttpGet("{postId}/applications")]
+        public async Task<ActionResult<PostApplicationListResponse>> GetAllApplication([FromRoute] long postId)
+            
         {
+            GetAllApplicationRequest request = new GetAllApplicationRequest();
+            request.PostId = postId;
             return await Mediator.Send(request);
         }
 
@@ -43,6 +47,15 @@ namespace ClientService.API.Controllers
         public async Task<ActionResult<StatusResponse>> Accept([FromRoute] long postId, [FromRoute] long applicationId)
         {
             AcceptApplicationRequest request = new AcceptApplicationRequest();
+            request.PostId = postId;
+            request.ApplicationId = applicationId;
+            return await Mediator.Send(request);
+        }
+
+        [HttpPost("{postId}/applications/{applicationId}/cancel")]
+        public async Task<ActionResult<PostApplicationResponse>> CancelApplication([FromRoute] long postId, [FromRoute] long applicationId)
+        {
+            CancelApplicationRequest request = new CancelApplicationRequest();
             request.PostId = postId;
             request.ApplicationId = applicationId;
             return await Mediator.Send(request);
@@ -67,6 +80,12 @@ namespace ClientService.API.Controllers
         {
             GetDetailPostRequest request = new GetDetailPostRequest();
             request.Id = id;
+            return await Mediator.Send(request);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<PaginationResponse<Post, PostResponse>>> GetAllInPage([FromQuery] GetAllPostInPageRequest request)
+        {
             return await Mediator.Send(request);
         }
     }

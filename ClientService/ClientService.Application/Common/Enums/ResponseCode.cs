@@ -46,6 +46,8 @@ public enum ResponseCode
     
 
     //Post
-    [Description("User uploading post is not found")] AccountPostNotFound = 41,
-    [Description("Post's application is not found")] PostApplicationNotFound = 42,
+    [Description("User uploading post is not found")] AccountPostNotFound = 51,
+    [Description("Post's application is not found")] PostApplicationNotFound = 52,
+    [Description("Post is completely applied")] PostIsDone = 53,
+    [Description("Post is not found")] PostNotFound = 54,
 }

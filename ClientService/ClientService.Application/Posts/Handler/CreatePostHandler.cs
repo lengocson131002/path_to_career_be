@@ -37,6 +37,7 @@ namespace ClientService.Application.Posts.Handler
         public async Task<PostResponse> Handle(CreatePostRequest request, CancellationToken cancellationToken)
         {
             var post = _mapper.Map<Post>(request);
+            post.Status = Domain.Enums.PostStatus.New;
            
             await _unitOfWork.PostRepository.AddAsync(post);
             await _unitOfWork.SaveChangesAsync();

@@ -10,11 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClientService.Application.Posts.Queries
 {
-    public class GetAllApplicationRequest : IRequest<PostApplicationPageResponse>
+    public class GetAllApplicationRequest : IRequest<PostApplicationListResponse>
     {
-        [FromRoute]
         public long PostId { get; set; }
-        public int PageNumber { get; set; } = 0;
-        public int PageSize { get; set; } = 10;
     }
 }

@@ -28,12 +28,11 @@ namespace ClientService.Domain.Entities
         public ServiceType ServiceType { get; set; }
         public DateTime FinishTime { get; set; }
         public string Content { get; set; }
+        public string Title { get; set; }
         public int SupportCount { get; set; }
         public string MediaUrl { get; set; }
-        [Column(TypeName = "varchar(20)")]
-        public CVStyle CVStyle { get; set; }
-        [Column(TypeName = "varchar(20)")]
-        public CVType CVType { get; set; }
+        public CVStyle? CVStyle { get; set; }
+        public CVType? CVType { get; set; }
         public List<PostApplication> PostApplications { get; } = new();
     }
 }

@@ -14,29 +14,29 @@ using System.Threading.Tasks;
 
 namespace ClientService.Application.Posts.Handler
 {
-    public class GetAllPostApplicationInPageHandler : IRequestHandler<GetAllApplicationRequest, PostApplicationPageResponse>
+    public class GetAllPostApplicationHandler : IRequestHandler<GetAllApplicationRequest, PostApplicationListResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<GetAllPostApplicationInPageHandler> _logger;
+        private readonly ILogger<GetAllPostApplicationHandler> _logger;
         private readonly IMapper _mapper;
 
-        public GetAllPostApplicationInPageHandler(IUnitOfWork unitOfWork, ILogger<GetAllPostApplicationInPageHandler> logger, IMapper mapper)
+        public GetAllPostApplicationHandler(IUnitOfWork unitOfWork, ILogger<GetAllPostApplicationHandler> logger, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
         }
 
-        public async Task<PostApplicationPageResponse> Handle(GetAllApplicationRequest request, CancellationToken cancellationToken)
+        public async Task<PostApplicationListResponse> Handle(GetAllApplicationRequest request, CancellationToken cancellationToken)
         {
             var postApplications = await _unitOfWork.PostApplicationRepository.GetAsync(x => x.PostId == request.PostId);
-            List<PostApplicationResponse> postApplicationResponses = new List<PostApplicationResponse>();
+            PostApplicationListResponse response = new PostApplicationListResponse();
             foreach (var postApplication in postApplications)
             {
-                postApplicationResponses.Add(_mapper.Map<PostApplicationResponse>(postApplication));
+                response.Add(_mapper.Map<PostApplicationResponse>(postApplication));
             }
+
             
-            PostApplicationPageResponse response = new PostApplicationPageResponse(postApplicationResponses, postApplicationResponses.Count(), request.PageNumber, request.PageSize);
            
             return response;
         }
