@@ -15,6 +15,8 @@ namespace ClientService.Application.Posts.Commands
     {
         public ApplyPostRequestValidator()
         {
+            RuleFor(model => model.ApplierId)
+           .NotNull();
         }
     }
     public class ApplyPostRequest : IRequest<ApplyPostResponse>
@@ -22,8 +24,8 @@ namespace ClientService.Application.Posts.Commands
         public long ApplierId { get; set; }
         [JsonIgnore]
         public long PostId { get; set; }
-        public long SupportCount { get; set; }
-        public decimal FeePerCount { get; set; }
+        public long? SupportCount { get; set; }
+        public decimal? FeePerCount { get; set; }
         public string? ExperienceDescription { get; set; }
         public string? MethodDescription { get; set;}
     }

@@ -25,10 +25,10 @@ namespace ClientService.Domain.Entities
         public string JobPosition { get; set; }
         public string JobLevel { get; set; }
         public ServiceType ServiceType { get; set; }
-        public DateTimeOffset FinishTime { get; set; }
+        public DateTimeOffset? FinishTime { get; set; }
         public string Content { get; set; }
         public string Title { get; set; }
-        public int SupportCount { get; set; }
+        public int? SupportCount { get; set; }
         public string MediaUrl { get; set; }
         public CVStyle? CVStyle { get; set; }
         public CVType? CVType { get; set; }

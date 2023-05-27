@@ -16,8 +16,8 @@ namespace ClientService.Domain.Entities
         [ForeignKey("PostId")]
         public virtual Post Post { get; set; } = null!;
         public ApplicationStatus ApplicationStatus { get; set; }
-        public long SupportCount { get; set; }
-        public decimal FeePerCount { get; set; }
+        public long? SupportCount { get; set; }
+        public decimal? FeePerCount { get; set; }
         public string? ExperienceDescription { get; set; }
         public string? MethodDescription { get; set; }
 
