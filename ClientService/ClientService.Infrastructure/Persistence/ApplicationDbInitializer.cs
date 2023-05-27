@@ -40,6 +40,8 @@ public class ApplicationDbInitializer
     {
         try
         {
+            await _context.Database.EnsureCreatedAsync();
+            
             if (!_context.Accounts.Any())
             {
                 // Seeding account data

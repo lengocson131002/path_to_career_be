@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ClientService.Infrastructure.Migrations
+namespace ClientService.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitModel : Migration
+    public partial class FixPostEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -122,15 +122,15 @@ namespace ClientService.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AccountId = table.Column<long>(type: "bigint", nullable: false),
                     AcceptedAccountId = table.Column<long>(type: "bigint", nullable: true),
-                    Status = table.Column<string>(type: "varchar(20)", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
                     MajorId = table.Column<long>(type: "bigint", nullable: false),
                     JobPosition = table.Column<string>(type: "text", nullable: false),
-                    JobLevel = table.Column<string>(type: "text", nullable: false),
+                    JobLevel = table.Column<int>(type: "integer", nullable: false),
                     ServiceType = table.Column<int>(type: "integer", nullable: false),
-                    FinishTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FinishTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     Content = table.Column<string>(type: "text", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
-                    SupportCount = table.Column<int>(type: "integer", nullable: false),
+                    SupportCount = table.Column<int>(type: "integer", nullable: true),
                     MediaUrl = table.Column<string>(type: "text", nullable: false),
                     CVStyle = table.Column<int>(type: "integer", nullable: true),
                     CVType = table.Column<int>(type: "integer", nullable: true),
@@ -172,8 +172,8 @@ namespace ClientService.Infrastructure.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ApplicationStatus = table.Column<int>(type: "integer", nullable: false),
-                    SupportCount = table.Column<long>(type: "bigint", nullable: false),
-                    FeePerCount = table.Column<decimal>(type: "numeric", nullable: false),
+                    SupportCount = table.Column<long>(type: "bigint", nullable: true),
+                    FeePerCount = table.Column<decimal>(type: "numeric", nullable: true),
                     ExperienceDescription = table.Column<string>(type: "text", nullable: true),
                     MethodDescription = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),

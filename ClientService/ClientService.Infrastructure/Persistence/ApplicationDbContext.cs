@@ -25,14 +25,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         modelBuilder.Entity<PostApplication>()
             .HasIndex(e => e.Id)
             .IsUnique();
-        modelBuilder.Entity<PostApplication>()
-            .HasKey(nameof(PostApplication.PostId), nameof(PostApplication.ApplierId));
 
         modelBuilder.Entity<Account>()
-             .HasMany(account => account.Reviews).WithOne(review => review.Reviewer);
-        modelBuilder.Entity<Account>()
-             .HasMany(account => account.IsReview).WithOne(review => review.Account);
-        ;
+             .HasMany(account => account.Reviews)
+             .WithOne(review => review.Reviewer);
     }
 
     public DbSet<Account> Accounts => Set<Account>();

@@ -15,7 +15,7 @@ namespace ClientService.Application.Posts.Queries
         {
         }
     }
-    public class GetDetailPostRequest : IRequest<PostResponse>
+    public class GetDetailPostRequest : IRequest<PostDetailResponse>
     {
         public long Id { get; set; }
     }

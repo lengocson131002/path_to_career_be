@@ -21,7 +21,7 @@ public class AccountController : ApiControllerBase
     }
     
     [HttpGet]
-    [Authorize]
+    [Authorize(Roles = "User")]
     public async Task<ActionResult<PaginationResponse<Account, AccountResponse>>> GetAllAccounts([FromQuery] GetAllAccountRequest request)
     {
         return await Mediator.Send(request);

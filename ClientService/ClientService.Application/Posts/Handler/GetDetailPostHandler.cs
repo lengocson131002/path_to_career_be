@@ -8,12 +8,16 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ClientService.Application.Common.Models.Response;
+using ClientService.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Posts.Handler
 {
-    public class GetDetailPostHandler : IRequestHandler<GetDetailPostRequest, PostResponse>
+    public class GetDetailPostHandler : IRequestHandler<GetDetailPostRequest, PostDetailResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<GetDetailPostHandler> _logger;
@@ -26,10 +30,19 @@ namespace ClientService.Application.Posts.Handler
             _mapper = mapper;
         }
 
-        public async Task<PostResponse> Handle(GetDetailPostRequest request, CancellationToken cancellationToken)
+        public async Task<PostDetailResponse> Handle(GetDetailPostRequest request, CancellationToken cancellationToken)
         {
-            var post = await _unitOfWork.PostRepository.GetByIdAsync(request.Id);
-            return _mapper.Map<PostResponse>(post);
+            var postQuery = await _unitOfWork.PostRepository.GetAsync(
+                predicate: post => post.Id == request.Id,
+                includes: new ListResponse<Expression<Func<Post, object>>>()
+                {
+                    post => post.Major,
+                    post => post.Account,
+                    post => post.AcceptedAccount
+                });
+            var post = await postQuery.FirstOrDefaultAsync(cancellationToken);
+            
+            return _mapper.Map<PostDetailResponse>(post);
         }
     }
 }

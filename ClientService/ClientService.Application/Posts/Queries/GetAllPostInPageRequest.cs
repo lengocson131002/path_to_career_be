@@ -16,9 +16,11 @@ namespace ClientService.Application.Posts.Queries
 {
     public class GetAllPostInPageRequest : PaginationRequest<Post>, IRequest<PaginationResponse<Post, PostResponse>>
     {
+        public long? AccountId { get; set; }
         public string? Keyword { get; set; }
-        public long[]? MajorId { get; set; } 
+        public long[]? MajorIds { get; set; } 
         public ServiceType? ServiceType { get; set; }
+        
         public override Expression<Func<Post, bool>> GetExpressions()
         {
             var expression = PredicateBuilder.New<Post>(true);
@@ -28,9 +30,9 @@ namespace ClientService.Application.Posts.Queries
                 expression = expression.And(post => post.ServiceType.Equals(ServiceType));
             }
 
-            if (MajorId != null && MajorId.Any())
+            if (MajorIds != null && MajorIds.Any())
             {
-                expression = expression.And(post => MajorId.Contains(post.MajorId));
+                expression = expression.And(post => MajorIds.Contains(post.MajorId));
             }
 
             if (!string.IsNullOrEmpty(Keyword))
@@ -40,6 +42,11 @@ namespace ClientService.Application.Posts.Queries
                 queryExpression = queryExpression.Or(post => post.Title.Contains(Keyword));
                 expression = expression.And(queryExpression);
 
+            }
+
+            if (AccountId != null)
+            {
+                expression = expression.And(post => post.AccountId == AccountId);
             }
 
             return expression;

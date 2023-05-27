@@ -15,13 +15,17 @@ namespace ClientService.Application.Posts.Commands
     {
         public ApplyPostRequestValidator()
         {
-            RuleFor(model => model.ApplierId)
-           .NotNull();
+            RuleFor(model => model.SupportCount)
+                .GreaterThan(0)
+                .When(model => model.SupportCount != null);
+            
+            RuleFor(model => model.FeePerCount)
+                .GreaterThan(0)
+                .When(model => model.FeePerCount != null);
         }
     }
     public class ApplyPostRequest : IRequest<ApplyPostResponse>
     {
-        public long ApplierId { get; set; }
         [JsonIgnore]
         public long PostId { get; set; }
         public long? SupportCount { get; set; }

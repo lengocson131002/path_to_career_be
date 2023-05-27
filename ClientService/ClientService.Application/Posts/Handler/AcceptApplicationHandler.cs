@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClientService.Domain.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Posts.Handler
 {
@@ -38,16 +40,18 @@ namespace ClientService.Application.Posts.Handler
             {
                 return new StatusResponse(false);
             }
-            var postApplications = await _unitOfWork.PostApplicationRepository.GetAsync(x => x.PostId == request.PostId);
-            if (postApplications?.Any() != true)
+            var postApplicationQuery = await _unitOfWork.PostApplicationRepository.GetAsync(x => x.Id == request.ApplicationId);
+            var postApplication = await postApplicationQuery.FirstOrDefaultAsync(cancellationToken);
+            if (postApplication == null || postApplication.ApplicationStatus == ApplicationStatus.Cancel)
             {
                 throw new ApiException(ResponseCode.PostApplicationNotFound);
             }
-
-            post.AcceptedAccountId = postApplications.FirstOrDefault().ApplierId;
+            post.AcceptedAccountId = postApplication.ApplierId;
             post.Status = Domain.Enums.PostStatus.Done;
+
             await _unitOfWork.PostRepository.UpdateAsync(post);
             await _unitOfWork.SaveChangesAsync();
+            
             return new StatusResponse(true);
         }
     }

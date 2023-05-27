@@ -21,6 +21,8 @@ public class GetAllAccountRequest : PaginationRequest<Account>, IRequest<Paginat
         set => _query = value?.ToLower().Trim();
     }
     
+    public long[]? MajorIds { get; set; }
+
     public override Expression<Func<Account, bool>> GetExpressions()
     {
         var expression = PredicateBuilder.New<Account>(true);
@@ -37,6 +39,11 @@ public class GetAllAccountRequest : PaginationRequest<Account>, IRequest<Paginat
             queryExpression = queryExpression.Or(acc => acc.Email.ToLower().Contains(Query));
             queryExpression = queryExpression.Or(acc => acc.PhoneNumber != null && acc.PhoneNumber.ToLower().Contains(Query));
             expression = expression.And(queryExpression);
+        }
+
+        if (MajorIds != null && MajorIds.Length > 0)
+        {
+            expression = expression.And(acc => acc.Majors.FirstOrDefault(m => MajorIds.Contains(m.Id)) != null);
         }
 
         return expression;

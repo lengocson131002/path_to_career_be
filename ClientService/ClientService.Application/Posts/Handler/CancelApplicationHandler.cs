@@ -8,11 +8,7 @@ using ClientService.Application.Posts.Models;
 using ClientService.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Posts.Handler
 {
@@ -30,17 +26,19 @@ namespace ClientService.Application.Posts.Handler
         }
         public async Task<PostApplicationResponse> Handle(CancelApplicationRequest request, CancellationToken cancellationToken)
         {
-            var applications = await _unitOfWork.PostApplicationRepository.GetAsync(application => application.PostId == request.PostId && application.Id == request.ApplicationId);
-            if (!applications.Any())
+            var applicationQuery = await _unitOfWork.PostApplicationRepository.GetAsync(application => application.PostId == request.PostId && application.Id == request.ApplicationId);
+            var application = await applicationQuery.FirstOrDefaultAsync(cancellationToken);
+
+            if (application == null)
             {
                 throw new ApiException(ResponseCode.PostApplicationNotFound);
             }
 
-            var application = applications.FirstOrDefault();
             application.ApplicationStatus = ApplicationStatus.Cancel;
 
             await _unitOfWork.PostApplicationRepository.UpdateAsync(application);
             await _unitOfWork.SaveChangesAsync();
+            
             return _mapper.Map<PostApplicationResponse>(application);
         }
     }

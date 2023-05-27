@@ -3,20 +3,17 @@ using System;
 using ClientService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ClientService.Infrastructure.Migrations
+namespace ClientService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230527045144_InitModel")]
-    partial class InitModel
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,12 +164,11 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("FinishTime")
+                    b.Property<DateTimeOffset?>("FinishTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("JobLevel")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("JobLevel")
+                        .HasColumnType("integer");
 
                     b.Property<string>("JobPosition")
                         .IsRequired()
@@ -188,11 +184,10 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<int>("ServiceType")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("SupportCount")
+                    b.Property<int?>("SupportCount")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")
@@ -242,7 +237,7 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<string>("ExperienceDescription")
                         .HasColumnType("text");
 
-                    b.Property<decimal>("FeePerCount")
+                    b.Property<decimal?>("FeePerCount")
                         .HasColumnType("numeric");
 
                     b.Property<long>("Id")
@@ -254,7 +249,7 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<string>("MethodDescription")
                         .HasColumnType("text");
 
-                    b.Property<long>("SupportCount")
+                    b.Property<long?>("SupportCount")
                         .HasColumnType("bigint");
 
                     b.Property<DateTimeOffset>("UpdatedAt")

@@ -23,6 +23,7 @@ namespace ClientService.Application.Common.Mappings
 
             CreateMap<PostApplication, PostApplicationResponse>();
 
+            CreateMap<Post, PostDetailResponse>();
         }
     }
 }

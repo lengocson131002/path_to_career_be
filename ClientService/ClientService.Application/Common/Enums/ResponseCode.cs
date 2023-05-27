@@ -50,4 +50,6 @@ public enum ResponseCode
     [Description("Post's application is not found")] PostApplicationNotFound = 52,
     [Description("Post is completely applied")] PostIsDone = 53,
     [Description("Post is not found")] PostNotFound = 54,
+    [Description("You have applied this post before")] ExistApplication = 55,
+
 }

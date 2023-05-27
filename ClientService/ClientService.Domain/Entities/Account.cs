@@ -23,6 +23,5 @@ public class Account : BaseAuditableEntity
 
     public List<Review> Reviews { get; set; } = new List<Review>();
 
-    public List<Review> IsReview { get; set; } = new List<Review>();
     public List<PostApplication> PostApplications { get; } = new();
 }

@@ -7,12 +7,8 @@ using ClientService.Application.Posts.Models;
 using ClientService.Domain.Entities;
 using ClientService.Domain.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClientService.Application.Posts.Handler
 {
@@ -21,14 +17,14 @@ namespace ClientService.Application.Posts.Handler
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<ApplyPostHandler> _logger;
         private readonly IMapper _mapper;
-        private readonly ICurrentUserService _currentUserService;
+        private readonly ICurrentAccountService _currentAccountService;
 
-        public ApplyPostHandler(IUnitOfWork unitOfWork, ILogger<ApplyPostHandler> logger, IMapper mapper, ICurrentUserService currentUserService)
+        public ApplyPostHandler(IUnitOfWork unitOfWork, ILogger<ApplyPostHandler> logger, IMapper mapper, ICurrentAccountService currentAccountService)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
-            _currentUserService = currentUserService;
+            _currentAccountService = currentAccountService;
         }
 
         public async Task<ApplyPostResponse> Handle(ApplyPostRequest request, CancellationToken cancellationToken)
@@ -38,12 +34,26 @@ namespace ClientService.Application.Posts.Handler
             {
                 throw new ApiException(ResponseCode.PostNotFound);
             }
+            
             if (post.Status.Equals(PostStatus.Done))
             {
                 throw new ApiException(ResponseCode.PostIsDone);
             }
+
+            var currentAccount = await _currentAccountService.GetCurrentAccount();
+
+            var existApplicationQuery = await _unitOfWork.PostApplicationRepository.GetAsync(a => a.PostId == post.Id && a.ApplierId == currentAccount.Id);
+            var existApplication = await existApplicationQuery.FirstOrDefaultAsync(cancellationToken);
+            if (existApplication != null)
+            {
+                throw new ApiException(ResponseCode.ExistApplication);
+            }
+                
             var postApplication = _mapper.Map<PostApplication>(request);
+            postApplication.Applier = currentAccount;
+            
             postApplication.ApplicationStatus = ApplicationStatus.Open;
+            
             await _unitOfWork.PostApplicationRepository.AddAsync(postApplication);
             await _unitOfWork.SaveChangesAsync();
             return _mapper.Map<ApplyPostResponse>(postApplication);

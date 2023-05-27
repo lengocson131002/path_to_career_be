@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClientService.Domain.Enums;
 
 namespace ClientService.Application.Posts.Handler
 {
@@ -34,8 +35,12 @@ namespace ClientService.Application.Posts.Handler
             {
                 return new StatusResponse(false);
             }
-            await _unitOfWork.PostRepository.DeleteAsync(post);
+
+            post.Status = PostStatus.Done;
+            
+            await _unitOfWork.PostRepository.UpdateAsync(post);
             await _unitOfWork.SaveChangesAsync();
+            
             return new StatusResponse(true);
         }
     }
