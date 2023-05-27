@@ -17,7 +17,7 @@ namespace ClientService.Application.Posts.Models
         public string JobPosition { get; set; }
         public string JobLevel { get; set; }
         public ServiceType ServiceType { get; set; }
-        public DateTime FinishTime { get; set; }
+        public DateTimeOffset FinishTime { get; set; }
         public string Content { get; set; }
         public int SupportCount { get; set; }
         public string MediaUrl { get; set; }

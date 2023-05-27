@@ -17,7 +17,7 @@ namespace ClientService.Application.Posts.Queries
     public class GetAllPostInPageRequest : PaginationRequest<Post>, IRequest<PaginationResponse<Post, PostResponse>>
     {
         public string? Keyword { get; set; }
-        public long[] MajorId { get; set; } 
+        public long[]? MajorId { get; set; } 
         public ServiceType? ServiceType { get; set; }
         public override Expression<Func<Post, bool>> GetExpressions()
         {
@@ -28,7 +28,7 @@ namespace ClientService.Application.Posts.Queries
                 expression = expression.And(post => post.ServiceType.Equals(ServiceType));
             }
 
-            if (MajorId.Any())
+            if (MajorId != null && MajorId.Any())
             {
                 expression = expression.And(post => MajorId.Contains(post.MajorId));
             }

@@ -142,13 +142,11 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("CVStyle")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
+                    b.Property<int?>("CVStyle")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("CVType")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
+                    b.Property<int?>("CVType")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -166,7 +164,7 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("FinishTime")
+                    b.Property<DateTimeOffset>("FinishTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("JobLevel")
@@ -184,9 +182,8 @@ namespace ClientService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ServiceType")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
+                    b.Property<int>("ServiceType")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -194,6 +191,10 @@ namespace ClientService.Infrastructure.Migrations
 
                     b.Property<int>("SupportCount")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -219,6 +220,9 @@ namespace ClientService.Infrastructure.Migrations
 
                     b.Property<long>("ApplierId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("ApplicationStatus")
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");

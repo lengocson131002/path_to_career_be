@@ -24,9 +24,8 @@ namespace ClientService.Domain.Entities
         public Major Major { get; set; }
         public string JobPosition { get; set; }
         public string JobLevel { get; set; }
-        [Column(TypeName = "varchar(20)")]
         public ServiceType ServiceType { get; set; }
-        public DateTime FinishTime { get; set; }
+        public DateTimeOffset FinishTime { get; set; }
         public string Content { get; set; }
         public string Title { get; set; }
         public int SupportCount { get; set; }

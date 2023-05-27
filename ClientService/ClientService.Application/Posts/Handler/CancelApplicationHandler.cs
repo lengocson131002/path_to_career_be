@@ -30,7 +30,7 @@ namespace ClientService.Application.Posts.Handler
         }
         public async Task<PostApplicationResponse> Handle(CancelApplicationRequest request, CancellationToken cancellationToken)
         {
-            var applications = await _unitOfWork.PostApplicationRepository.GetAsync(application => application.PostId == request.PostId && application.Id == request.PostApplicationId);
+            var applications = await _unitOfWork.PostApplicationRepository.GetAsync(application => application.PostId == request.PostId && application.Id == request.ApplicationId);
             if (!applications.Any())
             {
                 throw new ApiException(ResponseCode.PostApplicationNotFound);

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClientService.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230525061111_UpdateNewModelV3")]
-    partial class UpdateNewModelV3
+    [Migration("20230527045144_InitModel")]
+    partial class InitModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,13 +145,11 @@ namespace ClientService.Infrastructure.Migrations
                     b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("CVStyle")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
+                    b.Property<int?>("CVStyle")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("CVType")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
+                    b.Property<int?>("CVType")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -187,9 +185,8 @@ namespace ClientService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ServiceType")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
+                    b.Property<int>("ServiceType")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -197,6 +194,10 @@ namespace ClientService.Infrastructure.Migrations
 
                     b.Property<int>("SupportCount")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -210,6 +211,8 @@ namespace ClientService.Infrastructure.Migrations
 
                     b.HasIndex("AccountId");
 
+                    b.HasIndex("MajorId");
+
                     b.ToTable("Posts");
                 });
 
@@ -220,6 +223,9 @@ namespace ClientService.Infrastructure.Migrations
 
                     b.Property<long>("ApplierId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("ApplicationStatus")
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -342,9 +348,17 @@ namespace ClientService.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ClientService.Domain.Entities.Major", "Major")
+                        .WithMany()
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AcceptedAccount");
 
                     b.Navigation("Account");
+
+                    b.Navigation("Major");
                 });
 
             modelBuilder.Entity("ClientService.Domain.Entities.PostApplication", b =>

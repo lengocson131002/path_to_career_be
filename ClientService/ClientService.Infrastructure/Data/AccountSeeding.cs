@@ -16,6 +16,15 @@ public static class AccountSeeding
             FullName = "Tran Tien Ngoc",
             PhoneNumber = "1234567890",
             Role = Role.Admin
+        },
+        new Account()
+        {
+            Email = "test@gmail.com",
+            CreatedAt = DateTimeOffset.UtcNow,
+            UpdatedAt = DateTimeOffset.UtcNow,
+            FullName = "Nguyen Thanh Ha",
+            PhoneNumber = "0132448791",
+            Role = Role.User
         }
     };
 }
