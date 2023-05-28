@@ -8,6 +8,6 @@ namespace ClientService.Domain.Enums
 {
     public enum ServiceType
     {
-        CreateCV, ReviewCV, MockerInterview
+        CreateCV, ReviewCV, MockInterview
     }
 }
