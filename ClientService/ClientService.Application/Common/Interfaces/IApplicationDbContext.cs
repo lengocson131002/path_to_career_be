@@ -12,5 +12,13 @@ public interface IApplicationDbContext
     DbSet<Review> Reviews { get; }
     
     DbSet<Post> Posts { get; }
+    
     DbSet<PostApplication> PostApplications { get; }
+    
+    DbSet<Service> Services { get; }
+    
+    DbSet<AccountService> AccountServices { get; }
+
+    DbSet<Transaction> Transactions { get; }
+
 }

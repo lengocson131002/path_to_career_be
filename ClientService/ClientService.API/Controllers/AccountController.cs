@@ -20,6 +20,21 @@ public class AccountController : ApiControllerBase
         return await Mediator.Send(new GetCurrentAccountRequest());
     }
     
+    [HttpPost("me/service")]
+    [Authorize(Roles = "Freelancer")]
+    public async Task<ActionResult<StatusResponse>> RegisterService([FromBody] RegisterServiceRequest request)
+    {
+        return await Mediator.Send(request);
+    }
+
+    [HttpDelete("me/service")]
+    [Authorize(Roles = "Freelancer")]
+
+    public async Task<ActionResult<StatusResponse>> CancelCurrentService()
+    {
+        return await Mediator.Send(new CancelCurrentServiceRequest());
+    }
+    
     [HttpGet]
     [Authorize(Roles = "User")]
     public async Task<ActionResult<PaginationResponse<Account, AccountResponse>>> GetAllAccounts([FromQuery] GetAllAccountRequest request)

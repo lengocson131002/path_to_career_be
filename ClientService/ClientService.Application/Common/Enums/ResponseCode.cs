@@ -45,11 +45,16 @@ public enum ResponseCode
 
     
 
-    //Post
-    [Description("User uploading post is not found")] AccountPostNotFound = 51,
+    // Post
     [Description("Post's application is not found")] PostApplicationNotFound = 52,
     [Description("Post is completely applied")] PostIsDone = 53,
     [Description("Post is not found")] PostNotFound = 54,
     [Description("You have applied this post before")] ExistApplication = 55,
+    
+    // Service
+    [Description("Service not found")] ServiceErrorNotFound = 60,
+    [Description("Service's name existed")] ServiceErrorExistedName = 61,
+    [Description("Account has current active service")] ServiceErrorAccountHasCurrentActiveService = 62,
+    [Description("Account has no current active service")] ServiceErrorAccountHasNoActiveService = 63,
 
 }

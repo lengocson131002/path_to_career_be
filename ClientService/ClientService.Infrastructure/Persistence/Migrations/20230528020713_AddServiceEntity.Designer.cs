@@ -3,6 +3,7 @@ using System;
 using ClientService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClientService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528020713_AddServiceEntity")]
+    partial class AddServiceEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,56 +90,6 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
-                });
-
-            modelBuilder.Entity("ClientService.Domain.Entities.AccountService", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AccountId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("ApplyCount")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset?>("CancelTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("text");
-
-                    b.Property<long>("ServiceId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTimeOffset>("StartTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("AccountServices");
                 });
 
             modelBuilder.Entity("ClientService.Domain.Entities.Major", b =>
@@ -368,95 +321,6 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("ClientService.Domain.Entities.Service", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<int>("ApplyCount")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<double?>("Discount")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("OnTop")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<bool>("Recommended")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("ClientService.Domain.Entities.Transaction", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AccountId")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("PayMethod")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("PaymentTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("ReferenceTransactionId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.ToTable("Transactions");
-                });
-
             modelBuilder.Entity("AccountMajor", b =>
                 {
                     b.HasOne("ClientService.Domain.Entities.Account", null)
@@ -470,25 +334,6 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                         .HasForeignKey("MajorsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ClientService.Domain.Entities.AccountService", b =>
-                {
-                    b.HasOne("ClientService.Domain.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ClientService.Domain.Entities.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
@@ -552,17 +397,6 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("Reviewer");
-                });
-
-            modelBuilder.Entity("ClientService.Domain.Entities.Transaction", b =>
-                {
-                    b.HasOne("ClientService.Domain.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("ClientService.Domain.Entities.Account", b =>

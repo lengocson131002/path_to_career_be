@@ -1,5 +1,6 @@
 using ClientService.Application.Common.Interfaces;
 using ClientService.Domain.Entities;
+using ClientService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Infrastructure.Persistence;
@@ -36,7 +37,13 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Post> Posts => Set<Post>();
 
     public DbSet<PostApplication> PostApplications => Set<PostApplication>();
-    
+
+    public DbSet<Service> Services => Set<Service>();
+
+    public DbSet<AccountService> AccountServices => Set<AccountService>();
+
+    public DbSet<Transaction> Transactions => Set<Transaction>();
+
     public DbSet<Major> Majors => Set<Major>();
 
     public DbSet<Review> Reviews => Set<Review>();

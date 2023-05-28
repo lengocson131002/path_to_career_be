@@ -3,8 +3,11 @@ using AutoMapper;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Accounts.Queries;
 using ClientService.Application.Common.Interfaces;
+using ClientService.Application.Common.Models.Response;
+using ClientService.Application.Services.Models;
 using ClientService.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Accounts.Handlers;
 
@@ -29,6 +32,24 @@ public class GetCurrentAccountHandler : IRequestHandler<GetCurrentAccountRequest
             acc => acc.Reviews
         });
 
-        return _mapper.Map<AccountDetailResponse>(account);
+        var response = _mapper.Map<AccountDetailResponse>(account); 
+
+        // Get current registered service
+        var registrationQuery = await _unitOfWork.AccountServiceRepository.GetAsync(
+            x => x.AccountId == account.Id
+                                   && x.StartTime.AddMonths(x.Service.Duration) > DateTimeOffset.UtcNow
+                                   && x.CancelTime == null,
+            includes: new ListResponse<Expression<Func<AccountService, object>>>()
+            {
+                reg => reg.Service
+            });
+
+        var registration = await registrationQuery.FirstOrDefaultAsync(cancellationToken);
+        if (registration != null)
+        {
+            response.Service = _mapper.Map<ServiceResponse>(registration.Service);
+        }
+        
+        return response;
     }
 }

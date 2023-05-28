@@ -3,6 +3,8 @@ using ClientService.Application.Accounts.Commands;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Majors.Models;
 using ClientService.Application.Reviews.Models;
+using ClientService.Application.Services.Commands;
+using ClientService.Application.Services.Models;
 using ClientService.Domain.Entities;
 
 namespace ClientService.Application.Common.Mappings;
@@ -25,5 +27,10 @@ public class MappingProfiles : Profile
         
         // Review
         CreateMap<Review, ReviewResponse>();
+
+        // Service
+        CreateMap<Service, ServiceResponse>();
+        CreateMap<Service, ServiceDetailResponse>();
+        CreateMap<CreateServiceRequest, Service>();
     }
 }

@@ -1,4 +1,5 @@
 using ClientService.Application.Majors.Models;
+using ClientService.Application.Services.Models;
 
 namespace ClientService.Application.Accounts.Models;
 
@@ -10,4 +11,5 @@ public class AccountDetailResponse : AccountResponse
     
     public DateTimeOffset UpdatedAt { get; set; }
     
+    public ServiceResponse? Service { get; set; }
 }

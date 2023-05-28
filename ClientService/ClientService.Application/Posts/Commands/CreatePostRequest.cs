@@ -26,7 +26,7 @@ namespace ClientService.Application.Posts.Commands
            .NotNull();
 
             RuleFor(model => model.ServiceType)
-           .NotEmpty();
+           .NotNull();
 
             RuleFor(model => model.Content)
            .NotEmpty();
