@@ -28,12 +28,12 @@ public class CancelCurrentServiceHandler : IRequestHandler<CancelCurrentServiceR
         // check whether current account has an active registered service
         var registrationQuery = await _unitOfWork.AccountServiceRepository.GetAsync(
             predicate: x => x.AccountId == currentAccount.Id
-                            && x.StartTime.AddMonths(x.Service.Duration) < DateTimeOffset.UtcNow
+                            && x.StartTime.AddMonths(x.Service.Duration) > DateTimeOffset.UtcNow
                             && x.CancelTime == null);
         var currentRegistration = await registrationQuery.FirstOrDefaultAsync(cancellationToken);
         if (currentRegistration == null)
         {
-            throw new ApiException(ResponseCode.ServiceErrorAccountHasCurrentActiveService);
+            throw new ApiException(ResponseCode.ServiceErrorAccountHasNoActiveService);
         }
         
         currentRegistration.CancelTime = DateTimeOffset.UtcNow;

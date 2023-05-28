@@ -32,5 +32,8 @@ public class MappingProfiles : Profile
         CreateMap<Service, ServiceResponse>();
         CreateMap<Service, ServiceDetailResponse>();
         CreateMap<CreateServiceRequest, Service>();
+        
+        // Registration
+        CreateMap<AccountService, RegistrationResponse>();
     }
 }

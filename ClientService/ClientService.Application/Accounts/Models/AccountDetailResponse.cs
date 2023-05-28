@@ -11,5 +11,6 @@ public class AccountDetailResponse : AccountResponse
     
     public DateTimeOffset UpdatedAt { get; set; }
     
-    public ServiceResponse? Service { get; set; }
+    public RegistrationResponse? RegisteredService { get; set; }
+    
 }

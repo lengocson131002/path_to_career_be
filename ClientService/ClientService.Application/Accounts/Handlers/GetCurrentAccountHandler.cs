@@ -47,7 +47,7 @@ public class GetCurrentAccountHandler : IRequestHandler<GetCurrentAccountRequest
         var registration = await registrationQuery.FirstOrDefaultAsync(cancellationToken);
         if (registration != null)
         {
-            response.Service = _mapper.Map<ServiceResponse>(registration.Service);
+            response.RegisteredService = _mapper.Map<RegistrationResponse>(registration);
         }
         
         return response;

@@ -31,7 +31,7 @@ public class RegisterServiceHandler : IRequestHandler<RegisterServiceRequest, St
         // check whether current account has an active registered service
         var serviceQuery = await _unitOfWork.AccountServiceRepository.GetAsync(
             predicate: x => x.AccountId == currentAccount.Id
-                            && x.StartTime.AddMonths(x.Service.Duration) < DateTimeOffset.UtcNow
+                            && x.StartTime.AddMonths(x.Service.Duration) > DateTimeOffset.UtcNow
                             && x.CancelTime == null);
         if (serviceQuery.Any())
         {
@@ -44,13 +44,25 @@ public class RegisterServiceHandler : IRequestHandler<RegisterServiceRequest, St
             throw new ApiException(ResponseCode.ServiceErrorNotFound);
         }
 
+        // Create transaction
+        var transaction = new Transaction()
+        {
+            Account = currentAccount,
+            Amount =  service.Price - (decimal) service.Discount * service.Price,
+            PayMethod = request.PaymentMethod,
+            PaymentTime = DateTimeOffset.UtcNow
+        };
+        
         var registration = new AccountService()
         {
             Account = currentAccount,
             Service = service,
-            StartTime = DateTimeOffset.UtcNow
+            StartTime = DateTimeOffset.UtcNow,
+            Transaction = transaction
         };
 
+
+        await _unitOfWork.TransactionRepository.AddAsync(transaction);
         await _unitOfWork.AccountServiceRepository.AddAsync(registration);
         await _unitOfWork.SaveChangesAsync();
 

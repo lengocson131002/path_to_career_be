@@ -17,4 +17,8 @@ public class AccountService : BaseAuditableEntity
     public DateTimeOffset? CancelTime { get; set; }
     
     public int ApplyCount { get; set; }
+    
+    public long TransactionId { get; set; }
+
+    public Transaction Transaction { get; set; } = default!;
 }
