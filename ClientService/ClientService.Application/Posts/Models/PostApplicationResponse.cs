@@ -26,8 +26,8 @@ namespace ClientService.Application.Posts.Models
         
         public string? MethodDescription { get; set; }
 
-        public DateTimeOffset? CreatedAt;
+        public DateTimeOffset? CreatedAt { get; set; }
 
-        public DateTimeOffset? UpdatedAt;
+        public DateTimeOffset? UpdatedAt { get; set; }
     }
 }
