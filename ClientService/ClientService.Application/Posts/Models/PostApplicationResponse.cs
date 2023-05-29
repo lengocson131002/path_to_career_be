@@ -25,5 +25,9 @@ namespace ClientService.Application.Posts.Models
         public string? ExperienceDescription { get; set; }
         
         public string? MethodDescription { get; set; }
+
+        public DateTimeOffset? CreatedAt { get; set; }
+
+        public DateTimeOffset? UpdatedAt { get; set; }
     }
 }

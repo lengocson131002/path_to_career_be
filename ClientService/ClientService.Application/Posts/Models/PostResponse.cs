@@ -42,5 +42,7 @@ namespace ClientService.Application.Posts.Models
         public DateTimeOffset? CreatedAt;
         
         public DateTimeOffset? UpdatedAt;
+
+        public string? Description { get; set; }
     }
 }

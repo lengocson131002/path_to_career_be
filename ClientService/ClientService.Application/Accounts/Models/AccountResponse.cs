@@ -5,6 +5,8 @@ namespace ClientService.Application.Accounts.Models;
 public class AccountResponse
 {
     public long Id { get; set; }
+    
+    public string? Avatar { get; set; }
 
     public string Email { get; set; } = default!;
     
