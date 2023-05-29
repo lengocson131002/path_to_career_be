@@ -37,6 +37,7 @@ public class GetAllAccountsHandler : IRequestHandler<GetAllAccountRequest, Pagin
         var response = query.Select(item => new AccountResponse()
             {
                 Id = item.Id,
+                Avatar = item.Avatar,
                 Email = item.Email,
                 PhoneNumber = item.FullName,
                 FullName = item.FullName,

@@ -32,7 +32,11 @@ public class RegisterAccountRequestValidator : AbstractValidator<RegisterAccount
 
         RuleFor(model => model.FullName)
             .NotEmpty();
+
+        RuleFor(model => model.MajorCodes)
+            .NotEmpty();
     }
+    
 }
 
 public class RegisterAccountRequest : IRequest<AccountResponse>
@@ -54,6 +58,8 @@ public class RegisterAccountRequest : IRequest<AccountResponse>
     public string PhoneNumber { get; set; } = default!;
 
     public string? Description { get; set; }
+    
+    public string? Avatar { get; set; }
     
     public IList<string> MajorCodes { get; set; }
 }

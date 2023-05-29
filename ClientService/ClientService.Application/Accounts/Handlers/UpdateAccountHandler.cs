@@ -37,6 +37,7 @@ public class UpdateAccountHandler : IRequestHandler<UpdateAccountRequest, Accoun
             acc => acc.Majors
         });
 
+        account.Avatar = request.Avatar;
         account.PhoneNumber = request.PhoneNumber ?? account.PhoneNumber;
         account.FullName = request.FullName ?? account.FullName;
         account.Description = request.Description ?? account.Description;
