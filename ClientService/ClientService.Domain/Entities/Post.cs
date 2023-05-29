@@ -49,5 +49,7 @@ namespace ClientService.Domain.Entities
         public CVType? CVType { get; set; }
         
         public List<PostApplication> PostApplications { get; } = new();
+
+        public string? Description { get; set; }
     }
 }

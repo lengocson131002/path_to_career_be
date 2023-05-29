@@ -1,34 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientService", "ClientService", "{F79CCFD6-398F-44A3-ACAA-D48725DD3394}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{BB5267B8-D02A-4272-ACAC-CFC18A142DB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientService.API", "ClientService\ClientService.API\ClientService.API.csproj", "{2DD6B04F-D46B-40D7-8995-35ECB6740A20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientService.API", "ClientService\ClientService.API\ClientService.API.csproj", "{2DD6B04F-D46B-40D7-8995-35ECB6740A20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientService.Application", "ClientService\ClientService.Application\ClientService.Application.csproj", "{EFA3E771-7703-4421-AB04-6EF658EC237F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientService.Application", "ClientService\ClientService.Application\ClientService.Application.csproj", "{EFA3E771-7703-4421-AB04-6EF658EC237F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientService.Infrastructure", "ClientService\ClientService.Infrastructure\ClientService.Infrastructure.csproj", "{1578FE72-0266-4C47-8CBF-17443A9AB67E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientService.Infrastructure", "ClientService\ClientService.Infrastructure\ClientService.Infrastructure.csproj", "{1578FE72-0266-4C47-8CBF-17443A9AB67E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientService.Domain", "ClientService\ClientService.Domain\ClientService.Domain.csproj", "{0DBE98D6-19C3-43FB-9AEF-D3D518F118FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientService.Domain", "ClientService\ClientService.Domain\ClientService.Domain.csproj", "{0DBE98D6-19C3-43FB-9AEF-D3D518F118FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.API", "IdentityService\IdentityService.API\IdentityService.API.csproj", "{7592BD61-744B-46BC-BDC0-3958D62CA489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.API", "IdentityService\IdentityService.API\IdentityService.API.csproj", "{7592BD61-744B-46BC-BDC0-3958D62CA489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Application", "IdentityService\IdentityService.Application\IdentityService.Application.csproj", "{8A9D24B3-C6B2-4027-AC9C-A293BE60C73A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Application", "IdentityService\IdentityService.Application\IdentityService.Application.csproj", "{8A9D24B3-C6B2-4027-AC9C-A293BE60C73A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Infrastructure", "IdentityService\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{D5D0B7AB-DD2F-4721-BF06-8F00E2023AF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastructure", "IdentityService\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{D5D0B7AB-DD2F-4721-BF06-8F00E2023AF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Domain", "IdentityService\IdentityService.Domain\IdentityService.Domain.csproj", "{E1CB87D1-AEC4-40F9-A3D6-D06E0E6FC313}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Domain", "IdentityService\IdentityService.Domain\IdentityService.Domain.csproj", "{E1CB87D1-AEC4-40F9-A3D6-D06E0E6FC313}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationService", "NotificationService", "{CEFB99CE-D325-43A5-9DE8-75D2224B4165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.API", "NotificationService\NotificationService.API\NotificationService.API.csproj", "{EABFA8C9-EA5A-46C2-BA59-693126AF6C33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.API", "NotificationService\NotificationService.API\NotificationService.API.csproj", "{EABFA8C9-EA5A-46C2-BA59-693126AF6C33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Application", "NotificationService\NotificationService.Application\NotificationService.Application.csproj", "{C6B14929-1CBA-4E28-A143-A47007CC0D55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Application", "NotificationService\NotificationService.Application\NotificationService.Application.csproj", "{C6B14929-1CBA-4E28-A143-A47007CC0D55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Domain", "NotificationService\NotificationService.Domain\NotificationService.Domain.csproj", "{C5D83CFC-ECF1-420B-9348-2DED5E4F6E65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Domain", "NotificationService\NotificationService.Domain\NotificationService.Domain.csproj", "{C5D83CFC-ECF1-420B-9348-2DED5E4F6E65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Infrastructure", "NotificationService\NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{0C141780-572E-48D4-B2BD-3D160497EEA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Infrastructure", "NotificationService\NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{0C141780-572E-48D4-B2BD-3D160497EEA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +88,9 @@ Global
 		{0C141780-572E-48D4-B2BD-3D160497EEA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C141780-572E-48D4-B2BD-3D160497EEA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2DD6B04F-D46B-40D7-8995-35ECB6740A20} = {F79CCFD6-398F-44A3-ACAA-D48725DD3394}
 		{EFA3E771-7703-4421-AB04-6EF658EC237F} = {F79CCFD6-398F-44A3-ACAA-D48725DD3394}
@@ -98,5 +104,8 @@ Global
 		{C6B14929-1CBA-4E28-A143-A47007CC0D55} = {CEFB99CE-D325-43A5-9DE8-75D2224B4165}
 		{C5D83CFC-ECF1-420B-9348-2DED5E4F6E65} = {CEFB99CE-D325-43A5-9DE8-75D2224B4165}
 		{0C141780-572E-48D4-B2BD-3D160497EEA0} = {CEFB99CE-D325-43A5-9DE8-75D2224B4165}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {677DDB5D-907A-41D3-967A-69033D47B1AD}
 	EndGlobalSection
 EndGlobal

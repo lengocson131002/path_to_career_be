@@ -61,5 +61,7 @@ namespace ClientService.Application.Posts.Commands
         public CVType? CVType { get; set; }
 
         public string MajorCode { get; set; } = default!;
+
+        public string? Description { get; set; }
     }
 }

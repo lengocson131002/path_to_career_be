@@ -64,5 +64,6 @@ namespace ClientService.Application.Posts.Commands
         public string? MediaUrl { get; set; }
         public CVStyle? CVStyle { get; set; }
         public CVType? CVType { get; set; }
+        public string? Description { get; set; }
     }
 }
