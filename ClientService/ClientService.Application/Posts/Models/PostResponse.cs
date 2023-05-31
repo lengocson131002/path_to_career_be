@@ -39,9 +39,9 @@ namespace ClientService.Application.Posts.Models
         
         public CVType? CVType { get; set; }
         
-        public DateTimeOffset? CreatedAt;
+        public DateTimeOffset? CreatedAt { get; set; }
         
-        public DateTimeOffset? UpdatedAt;
+        public DateTimeOffset? UpdatedAt { get; set; }
 
         public string? Description { get; set; }
     }

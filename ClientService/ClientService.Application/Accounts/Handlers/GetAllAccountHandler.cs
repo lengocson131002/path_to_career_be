@@ -39,7 +39,7 @@ public class GetAllAccountsHandler : IRequestHandler<GetAllAccountRequest, Pagin
                 Id = item.Id,
                 Avatar = item.Avatar,
                 Email = item.Email,
-                PhoneNumber = item.FullName,
+                PhoneNumber = item.PhoneNumber,
                 FullName = item.FullName,
                 Role = item.Role,
                 Description = item.Description,
