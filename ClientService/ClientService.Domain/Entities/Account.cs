@@ -11,7 +11,7 @@ public class Account : BaseAuditableEntity
 
     public string Email { get; set; } = default!;
     
-    public string PhoneNumber { get; set; } = default!;
+    public string? PhoneNumber { get; set; } = default!;
     
     public string? Password { get; set; }
 
