@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Application.Posts.Queries;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,7 +8,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,7 +34,9 @@ namespace ClientService.Application.Posts.Handler
                 {
                     post => post.Major,
                     post => post.Account,
-                    post => post.AcceptedAccount
+                    post => post.AcceptedAccount!,
+                    post => post.Freelancer!,
+                    post => post.Transaction!
                 });
             var post = await postQuery.FirstOrDefaultAsync(cancellationToken);
             

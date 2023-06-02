@@ -11,6 +11,7 @@
         <Folder Include="Common\Security" />
         <Folder Include="Greeting\Queries" />
         <Folder Include="Majors\Commands" />
+        <Folder Include="Messages\Commands" />
         <Folder Include="Models\Commands" />
         <Folder Include="Models\Handlers" />
         <Folder Include="Models\Queries" />

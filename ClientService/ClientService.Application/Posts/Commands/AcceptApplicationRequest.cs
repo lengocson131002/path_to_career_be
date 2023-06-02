@@ -1,6 +1,4 @@
-﻿using ClientService.Application.Common.Models.Response;
-using FluentValidation;
-using MediatR;
+﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;

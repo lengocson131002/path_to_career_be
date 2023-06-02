@@ -1,7 +1,5 @@
-using ClientService.Application.Common.Interfaces;
 using ClientService.Application.Greeting.Commands;
 using ClientService.Application.Greeting.Models;
-using MediatR;
 
 namespace ClientService.Application.Greeting.Handlers;
 

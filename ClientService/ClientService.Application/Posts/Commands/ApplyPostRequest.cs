@@ -1,7 +1,5 @@
 ﻿using ClientService.Application.Posts.Models;
-using ClientService.Domain.Enums;
 using FluentValidation;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;

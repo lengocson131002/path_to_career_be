@@ -1,10 +1,7 @@
 using System.Collections;
 using AutoMapper;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Majors.Models;
 using ClientService.Application.Majors.Queries;
-using MediatR;
 
 namespace ClientService.Application.Majors.Handlers;
 

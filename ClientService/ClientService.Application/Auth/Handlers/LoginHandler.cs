@@ -1,9 +1,5 @@
 using ClientService.Application.Auth.Commands;
 using ClientService.Application.Auth.Models;
-using ClientService.Application.Common.Enums;
-using ClientService.Application.Common.Exceptions;
-using ClientService.Application.Common.Interfaces;
-using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace ClientService.Application.Auth.Handlers;

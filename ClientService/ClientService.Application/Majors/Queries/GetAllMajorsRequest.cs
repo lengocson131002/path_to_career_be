@@ -1,6 +1,4 @@
-using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Majors.Models;
-using MediatR;
 
 namespace ClientService.Application.Majors.Queries;
 

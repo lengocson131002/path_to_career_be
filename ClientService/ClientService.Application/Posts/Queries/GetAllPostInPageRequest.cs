@@ -1,10 +1,7 @@
 ﻿using ClientService.Application.Common.Models.Request;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Posts.Models;
 using ClientService.Domain.Entities;
-using ClientService.Domain.Enums;
 using LinqKit;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;

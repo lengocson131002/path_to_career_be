@@ -1,11 +1,8 @@
 using System.Linq.Expressions;
 using AutoMapper;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Reviews.Models;
 using ClientService.Application.Reviews.Queries;
 using ClientService.Domain.Entities;
-using MediatR;
 
 namespace ClientService.Application.Reviews.Handlers;
 

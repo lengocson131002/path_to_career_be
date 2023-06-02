@@ -9,5 +9,7 @@ public class PostDetailResponse : PostResponse
 
     public AccountResponse Account { get; set; } = default!;
     
-    public AccountResponse AcceptedAccount { get; set; } = default!;
+    public AccountResponse? AcceptedAccount { get; set; }
+
+    public AccountResponse? Freelancer { get; set; }
 }

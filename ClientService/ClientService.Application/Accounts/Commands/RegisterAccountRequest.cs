@@ -1,9 +1,7 @@
 using System.Collections;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Common.Extensions;
-using ClientService.Domain.Enums;
 using FluentValidation;
-using MediatR;
 
 namespace ClientService.Application.Accounts.Commands;
 

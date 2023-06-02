@@ -1,4 +1,3 @@
-using ClientService.Application.Common.Enums;
 using ClientService.Application.Common.Extensions;
 
 namespace ClientService.Application.Common.Exceptions;

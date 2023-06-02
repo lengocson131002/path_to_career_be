@@ -1,12 +1,7 @@
 using System.Linq.Expressions;
 using AutoMapper;
 using ClientService.Application.Accounts.Commands;
-using ClientService.Application.Common.Enums;
-using ClientService.Application.Common.Exceptions;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Domain.Entities;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Accounts.Handlers;

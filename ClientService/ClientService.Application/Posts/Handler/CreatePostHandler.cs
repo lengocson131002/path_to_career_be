@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using ClientService.Application.Common.Extensions;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Domain.Entities;
-using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace ClientService.Application.Posts.Handler

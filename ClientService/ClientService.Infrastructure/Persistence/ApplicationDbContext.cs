@@ -1,6 +1,5 @@
 using ClientService.Application.Common.Interfaces;
 using ClientService.Domain.Entities;
-using ClientService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Infrastructure.Persistence;
@@ -47,4 +46,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Major> Majors => Set<Major>();
 
     public DbSet<Review> Reviews => Set<Review>();
+
+    public DbSet<Message> Messages => Set<Message>();
+
 }

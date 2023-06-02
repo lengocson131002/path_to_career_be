@@ -1,5 +1,3 @@
-using ClientService.Domain.Enums;
-
 namespace ClientService.Application.Accounts.Models;
 
 public class AccountResponse

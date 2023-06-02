@@ -1,7 +1,6 @@
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using ClientService.Application.Common.Constants;
-using ClientService.Application.Common.Enums;
 
 namespace ClientService.Application.Common.Models.Request;
 

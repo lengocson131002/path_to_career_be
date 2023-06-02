@@ -1,6 +1,5 @@
 using ClientService.Application.Services.Models;
 using FluentValidation;
-using MediatR;
 
 namespace ClientService.Application.Services.Commands;
 

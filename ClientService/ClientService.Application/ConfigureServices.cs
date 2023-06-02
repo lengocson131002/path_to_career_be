@@ -2,7 +2,6 @@ using System.Reflection;
 using ClientService.Application.Common.Behaviours;
 using ClientService.Application.Common.Mappings;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

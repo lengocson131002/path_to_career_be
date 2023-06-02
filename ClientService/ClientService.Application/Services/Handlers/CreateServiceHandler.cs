@@ -1,11 +1,7 @@
 using AutoMapper;
-using ClientService.Application.Common.Enums;
-using ClientService.Application.Common.Exceptions;
-using ClientService.Application.Common.Interfaces;
 using ClientService.Application.Services.Commands;
 using ClientService.Application.Services.Models;
 using ClientService.Domain.Entities;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Services.Handlers;

@@ -1,8 +1,10 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using ClientService.Application.Common.Interfaces;
 using ClientService.Infrastructure.Persistence;
 using ClientService.Infrastructure.Repositories;
 using ClientService.Infrastructure.Services;
+using ClientService.Infrastructure.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -64,6 +66,14 @@ public static class ConfigureServices
                 };
             });
         
+        // SignalR
+        services.AddSignalR()
+            .AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+        services.AddSingleton<ChatConnectionManager>();
+            
         return services;
     }
 }

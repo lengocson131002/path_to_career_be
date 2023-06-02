@@ -1,6 +1,5 @@
 using System.Net;
 using System.Text.Json;
-using ClientService.Application.Common.Models.Response;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;

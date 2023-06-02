@@ -2,11 +2,8 @@ using System.Linq.Expressions;
 using AutoMapper;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Accounts.Queries;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Services.Models;
 using ClientService.Domain.Entities;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Accounts.Handlers;

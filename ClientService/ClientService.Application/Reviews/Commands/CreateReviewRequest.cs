@@ -1,6 +1,5 @@
 using ClientService.Application.Reviews.Models;
 using FluentValidation;
-using MediatR;
 using Newtonsoft.Json;
 
 namespace ClientService.Application.Reviews.Commands;

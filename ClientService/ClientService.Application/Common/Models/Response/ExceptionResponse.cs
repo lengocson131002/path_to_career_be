@@ -1,6 +1,4 @@
 using System.Net;
-using ClientService.Application.Common.Enums;
-using ClientService.Application.Common.Exceptions;
 using ClientService.Application.Common.Extensions;
 using FluentValidation;
 

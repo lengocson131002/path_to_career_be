@@ -1,11 +1,8 @@
 using System.Linq.Expressions;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Common.Models.Request;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Domain.Entities;
-using ClientService.Domain.Enums;
 using LinqKit;
-using MediatR;
 
 namespace ClientService.Application.Accounts.Queries;
 

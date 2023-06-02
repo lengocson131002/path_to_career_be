@@ -20,5 +20,7 @@ public interface IApplicationDbContext
     DbSet<AccountService> AccountServices { get; }
 
     DbSet<Transaction> Transactions { get; }
+    
+    DbSet<Message> Messages { get; }
 
 }

@@ -1,10 +1,5 @@
 ﻿using ClientService.Domain.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClientService.Domain.Entities
 {
@@ -13,10 +8,14 @@ namespace ClientService.Domain.Entities
         public long Id { get; set; }
         
         public long AccountId { get; set; }
-        public long? AcceptedAccountId { get; set; }
+
+        [ForeignKey("AccountId")] public virtual Account Account { get; set; } = default!;
         
-        [ForeignKey("AccountId")]
-        public virtual Account Account { get; set; }
+        public long? FreelancerId { get; set; }
+        
+        public Account? Freelancer { get; set; }
+
+        public long? AcceptedAccountId { get; set; }
         
         [ForeignKey("AcceptedAccountId")]
         public virtual Account? AcceptedAccount { get; set; }
@@ -51,5 +50,10 @@ namespace ClientService.Domain.Entities
         public List<PostApplication> PostApplications { get; } = new();
 
         public string? Description { get; set; }
+        
+        public long? TransactionId { get; set; }
+        
+        public Transaction? Transaction { get; set; }
+        
     }
 }

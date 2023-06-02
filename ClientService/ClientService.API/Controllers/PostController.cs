@@ -1,4 +1,6 @@
 ﻿using ClientService.Application.Common.Models.Response;
+using ClientService.Application.Messages.Models;
+using ClientService.Application.Messages.Queries;
 using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Application.Posts.Queries;
@@ -105,6 +107,30 @@ namespace ClientService.API.Controllers
         [HttpGet]
         public async Task<ActionResult<PaginationResponse<Post, PostResponse>>> GetAllInPage([FromQuery] GetAllPostInPageRequest request)
         {
+            return await Mediator.Send(request);
+        }
+
+        [HttpPost("{id:int}/accept")]
+        [Authorize(Roles = "Freelancer")]
+        public async Task<ActionResult<StatusResponse>> AcceptPost([FromRoute] long id)
+        {
+            var request = new AcceptPostRequest(id);
+            return await Mediator.Send(request);
+        }
+        
+        [HttpPost("{id:int}/complete")]
+        [Authorize(Roles = "Freelancer")]
+        public async Task<ActionResult<StatusResponse>> CompletePost([FromRoute] long id)
+        {
+            var request = new CompletePostRequest(id);
+            return await Mediator.Send(request);
+        }
+        
+        [HttpGet("{id:int}/messages")]
+        [Authorize]
+        public async Task<ActionResult<ListResponse<MessageResponse>>> GetPostMessages([FromRoute] long id)
+        {
+            var request = new GetPostMessagesRequest(id);
             return await Mediator.Send(request);
         }
     }

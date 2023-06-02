@@ -1,6 +1,5 @@
 using ClientService.Application.Greeting.Models;
 using FluentValidation;
-using MediatR;
 
 namespace ClientService.Application.Greeting.Commands;
 

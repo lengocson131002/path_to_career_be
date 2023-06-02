@@ -1,5 +1,4 @@
 using ClientService.Application.Services.Models;
-using MediatR;
 
 namespace ClientService.Application.Services.Queries;
 

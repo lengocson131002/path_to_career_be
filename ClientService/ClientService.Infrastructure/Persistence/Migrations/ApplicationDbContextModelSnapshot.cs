@@ -185,6 +185,54 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.ToTable("Majors");
                 });
 
+            modelBuilder.Entity("ClientService.Domain.Entities.Message", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<long>("PostId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
                 {
                     b.Property<long>("Id")
@@ -227,6 +275,9 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.Property<DateTimeOffset?>("FinishTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<long?>("FreelancerId")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("JobLevel")
                         .HasColumnType("integer");
 
@@ -254,6 +305,9 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long?>("TransactionId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -266,7 +320,11 @@ namespace ClientService.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("AccountId");
 
+                    b.HasIndex("FreelancerId");
+
                     b.HasIndex("MajorId");
+
+                    b.HasIndex("TransactionId");
 
                     b.ToTable("Posts");
                 });
@@ -509,6 +567,25 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                     b.Navigation("Transaction");
                 });
 
+            modelBuilder.Entity("ClientService.Domain.Entities.Message", b =>
+                {
+                    b.HasOne("ClientService.Domain.Entities.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClientService.Domain.Entities.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("ClientService.Domain.Entities.Post", b =>
                 {
                     b.HasOne("ClientService.Domain.Entities.Account", "AcceptedAccount")
@@ -521,17 +598,29 @@ namespace ClientService.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ClientService.Domain.Entities.Account", "Freelancer")
+                        .WithMany()
+                        .HasForeignKey("FreelancerId");
+
                     b.HasOne("ClientService.Domain.Entities.Major", "Major")
                         .WithMany()
                         .HasForeignKey("MajorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ClientService.Domain.Entities.Transaction", "Transaction")
+                        .WithMany()
+                        .HasForeignKey("TransactionId");
+
                     b.Navigation("AcceptedAccount");
 
                     b.Navigation("Account");
 
+                    b.Navigation("Freelancer");
+
                     b.Navigation("Major");
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("ClientService.Domain.Entities.PostApplication", b =>

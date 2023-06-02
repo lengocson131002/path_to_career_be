@@ -7,17 +7,17 @@ namespace ClientService.Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
+    private readonly ApplicationDbContext _dbContext;
     private IBaseRepository<Account>? _accountRepository;
-    private IBaseRepository<Post>? _postRepository;
-    private IBaseRepository<PostApplication>? _postApplicationRepository;
+    private IBaseRepository<AccountService>? _accountServiceRepository;
+    private bool _disposed;
     private IBaseRepository<Major>? _majorRepository;
+    private IBaseRepository<Message>? _messageRepository;
+    private IBaseRepository<PostApplication>? _postApplicationRepository;
+    private IBaseRepository<Post>? _postRepository;
     private IBaseRepository<Review>? _reviewRepository;
     private IBaseRepository<Service>? _serviceRepository;
-    private IBaseRepository<AccountService>? _accountServiceRepository;
     private IBaseRepository<Transaction>? _transactionRepository;
-    
-    private readonly ApplicationDbContext _dbContext;
-    private bool _disposed;
 
     public UnitOfWork(ApplicationDbContext dbContext)
     {
@@ -44,6 +44,8 @@ public class UnitOfWork : IUnitOfWork
 
     public IBaseRepository<Transaction> TransactionRepository =>
         _transactionRepository ??= new BaseRepository<Transaction>(_dbContext);
+
+    public IBaseRepository<Message> MessageRepository => _messageRepository ??= new BaseRepository<Message>(_dbContext);
 
     public int SaveChanges()
     {

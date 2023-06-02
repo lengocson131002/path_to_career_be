@@ -11,7 +11,7 @@ public enum ResponseCode
     [Description("Mapping Error")] ErrorMapping = 3,
     
     [Description("Unauthorized")] Unauthorized = 4,
-
+    
     // File 
     
     [Description("File not found")] ErrorFileNotFound = 10,
@@ -50,11 +50,13 @@ public enum ResponseCode
     [Description("Post is completely applied")] PostIsDone = 53,
     [Description("Post is not found")] PostNotFound = 54,
     [Description("You have applied this post before")] ExistApplication = 55,
-    
+    [Description("Post's status is invalid to do this function")] InvalidPostStatus = 56,
+    [Description("Post's have not been paid")] PostNotPaid = 57,
+
     // Service
     [Description("Service not found")] ServiceErrorNotFound = 60,
     [Description("Service's name existed")] ServiceErrorExistedName = 61,
     [Description("Account has current active service")] ServiceErrorAccountHasCurrentActiveService = 62,
     [Description("Account has no current active service")] ServiceErrorAccountHasNoActiveService = 63,
-
+    
 }

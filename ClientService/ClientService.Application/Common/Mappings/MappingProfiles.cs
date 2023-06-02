@@ -2,6 +2,7 @@ using AutoMapper;
 using ClientService.Application.Accounts.Commands;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Majors.Models;
+using ClientService.Application.Messages.Models;
 using ClientService.Application.Reviews.Models;
 using ClientService.Application.Services.Commands;
 using ClientService.Application.Services.Models;
@@ -35,5 +36,8 @@ public class MappingProfiles : Profile
         
         // Registration
         CreateMap<AccountService, RegistrationResponse>();
+        
+        // Message 
+        CreateMap<Message, MessageResponse>();
     }
 }

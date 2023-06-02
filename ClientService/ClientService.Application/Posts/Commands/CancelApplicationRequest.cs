@@ -1,6 +1,4 @@
-﻿using ClientService.Application.Common.Models.Response;
-using ClientService.Application.Posts.Models;
-using MediatR;
+﻿using ClientService.Application.Posts.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

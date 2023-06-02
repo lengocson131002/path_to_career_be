@@ -1,7 +1,6 @@
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Common.Extensions;
 using FluentValidation;
-using MediatR;
 
 namespace ClientService.Application.Accounts.Commands;
 

@@ -3,9 +3,7 @@ using AutoMapper;
 using ClientService.Application.Accounts.Commands;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Common.Extensions;
-using ClientService.Application.Common.Interfaces;
 using ClientService.Domain.Entities;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

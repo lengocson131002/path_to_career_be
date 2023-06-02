@@ -3,6 +3,7 @@ using ClientService.API.Filters;
 using ClientService.Application;
 using ClientService.Application.Common.Exceptions;
 using ClientService.Infrastructure;
+using ClientService.Infrastructure.SignalR;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
     // Swagger doc
-    opt.SwaggerDoc("v1", new OpenApiInfo()
+    opt.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "P2C Api",
         Version = "v1"
@@ -39,13 +40,14 @@ builder.Services.AddSwaggerGen(opt =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowOrigin",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
+    options.AddPolicy("AllowOrigin", b =>
+    {
+        b
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .SetIsOriginAllowed(hostName => true);
+    });
 });
 
 
@@ -62,8 +64,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors("AllowOrigin");
 }
+
+app.UseCors("AllowOrigin");
 
 app.UseHttpsRedirection();
 
@@ -72,6 +75,8 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.MapHub<ChatHub>("/chat");
 
 app.MapControllers();
 

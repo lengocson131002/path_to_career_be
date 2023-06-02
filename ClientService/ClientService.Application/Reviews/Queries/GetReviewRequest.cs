@@ -1,5 +1,4 @@
 using ClientService.Application.Reviews.Models;
-using MediatR;
 
 namespace ClientService.Application.Reviews.Queries;
 

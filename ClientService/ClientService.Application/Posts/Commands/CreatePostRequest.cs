@@ -1,8 +1,6 @@
 ﻿using ClientService.Application.Posts.Models;
-using ClientService.Domain.Enums;
 using FluentValidation;
 using FluentValidation.Validators;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

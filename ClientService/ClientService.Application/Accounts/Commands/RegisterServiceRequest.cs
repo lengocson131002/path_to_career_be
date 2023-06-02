@@ -1,7 +1,4 @@
-using ClientService.Application.Common.Models.Response;
-using ClientService.Domain.Enums;
 using FluentValidation;
-using MediatR;
 
 namespace ClientService.Application.Accounts.Commands;
 

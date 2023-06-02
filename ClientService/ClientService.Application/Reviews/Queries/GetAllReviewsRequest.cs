@@ -1,11 +1,9 @@
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 using ClientService.Application.Common.Models.Request;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Reviews.Models;
 using ClientService.Domain.Entities;
 using LinqKit;
-using MediatR;
 
 namespace ClientService.Application.Reviews.Queries;
 

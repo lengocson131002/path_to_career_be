@@ -1,10 +1,6 @@
 using System.Security.Claims;
 using ClientService.Application.Auth.Commands;
 using ClientService.Application.Auth.Models;
-using ClientService.Application.Common.Enums;
-using ClientService.Application.Common.Exceptions;
-using ClientService.Application.Common.Interfaces;
-using MediatR;
 
 namespace ClientService.Application.Auth.Handlers;
 

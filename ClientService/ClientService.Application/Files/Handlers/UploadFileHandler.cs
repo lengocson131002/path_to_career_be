@@ -1,7 +1,5 @@
-using ClientService.Application.Common.Interfaces;
 using ClientService.Application.Files.Commands;
 using ClientService.Application.Files.Models;
-using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace ClientService.Application.Files.Handlers;

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Domain.Entities;
 using System;

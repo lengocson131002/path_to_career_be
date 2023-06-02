@@ -1,5 +1,4 @@
 using ClientService.Application.Posts.Models;
-using MediatR;
 
 namespace ClientService.Application.Posts.Commands;
 

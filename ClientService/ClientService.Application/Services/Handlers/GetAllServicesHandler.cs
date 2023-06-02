@@ -1,10 +1,7 @@
 using AutoMapper;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Services.Models;
 using ClientService.Application.Services.Queries;
 using ClientService.Domain.Entities;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Services.Handlers;

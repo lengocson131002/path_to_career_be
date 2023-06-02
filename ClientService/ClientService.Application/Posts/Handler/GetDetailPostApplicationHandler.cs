@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
-using ClientService.Application.Common.Enums;
-using ClientService.Application.Common.Exceptions;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Application.Posts.Queries;
 using ClientService.Domain.Entities;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

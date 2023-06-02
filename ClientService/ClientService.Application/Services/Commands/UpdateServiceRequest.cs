@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
 using ClientService.Application.Services.Models;
 using FluentValidation;
-using MediatR;
 
 namespace ClientService.Application.Services.Commands;
 

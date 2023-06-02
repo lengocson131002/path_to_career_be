@@ -1,19 +1,12 @@
 ﻿using AutoMapper;
-using ClientService.Application.Common.Enums;
-using ClientService.Application.Common.Exceptions;
-using ClientService.Application.Common.Interfaces;
-using ClientService.Application.Common.Models.Response;
-using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Domain.Entities;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ClientService.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Posts.Handler

@@ -1,7 +1,5 @@
-using ClientService.Application.Common.Interfaces;
 using ClientService.Application.Files.Models;
 using ClientService.Application.Files.Queries;
-using MediatR;
 
 namespace ClientService.Application.Files.Handlers;
 
