@@ -1,3 +1,5 @@
+using ClientService.Application.Majors.Models;
+
 namespace ClientService.Application.Accounts.Models;
 
 public class AccountResponse
@@ -17,4 +19,10 @@ public class AccountResponse
     public string? Description { get; set; }
     
     public double Score { get; set; }
+    
+    public IList<MajorResponse> Majors { get; set; } = default!;
+    
+    public DateTimeOffset CreatedAt { get; set; }
+    
+    public DateTimeOffset UpdatedAt { get; set; }
 }

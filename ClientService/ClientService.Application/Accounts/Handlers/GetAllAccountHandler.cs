@@ -30,23 +30,10 @@ public class GetAllAccountsHandler : IRequestHandler<GetAllAccountRequest, Pagin
             }
         );
         
-        // Default sort by total rating score
-        var response = query.Select(item => new AccountResponse()
-            {
-                Id = item.Id,
-                Avatar = item.Avatar,
-                Email = item.Email,
-                PhoneNumber = item.PhoneNumber,
-                FullName = item.FullName,
-                Role = item.Role,
-                Description = item.Description,
-                Score = item.Reviews.Any() ? item.Reviews.Sum(r => r.Score) / item.Reviews.Count : 0
-            })
-            .OrderByDescending(item => item.Score)
-            .Skip((request.PageNumber - 1) * request.PageSize)
-            .Take(request.PageSize)
-            .ToList();
-        
-        return new PaginationResponse<Account, AccountResponse>(response, query.Count(), request.PageNumber, request.PageSize);
+        return new PaginationResponse<Account, AccountResponse>(
+            query, 
+            request.PageNumber, 
+            request.PageSize, 
+            account => _mapper.Map<AccountResponse>(account));
     }
 }

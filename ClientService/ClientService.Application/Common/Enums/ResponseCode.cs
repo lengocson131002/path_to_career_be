@@ -12,6 +12,8 @@ public enum ResponseCode
     
     [Description("Unauthorized")] Unauthorized = 4,
     
+    [Description("Invalid query")] InvalidQuery = 5,
+    
     // File 
     
     [Description("File not found")] ErrorFileNotFound = 10,

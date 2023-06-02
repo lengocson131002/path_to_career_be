@@ -1,4 +1,5 @@
-﻿using ClientService.Application.Common.Models.Response;
+﻿using ClientService.Application.Common.Enums;
+using ClientService.Application.Common.Models.Response;
 using ClientService.Application.Messages.Models;
 using ClientService.Application.Messages.Queries;
 using ClientService.Application.Posts.Commands;
@@ -97,6 +98,7 @@ namespace ClientService.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<PostDetailResponse>> GetDetail([FromRoute] long id)
         {
             GetDetailPostRequest request = new GetDetailPostRequest();
@@ -105,8 +107,14 @@ namespace ClientService.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<PaginationResponse<Post, PostResponse>>> GetAllInPage([FromQuery] GetAllPostInPageRequest request)
         {
+            if (string.IsNullOrWhiteSpace(request.SortColumn))
+            {
+                request.SortColumn = "CreatedAt";
+                request.SortDir = SortDirection.Desc;
+            }
             return await Mediator.Send(request);
         }
 

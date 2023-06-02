@@ -13,10 +13,12 @@ namespace ClientService.Application.Posts.Queries
 {
     public class GetAllPostInPageRequest : PaginationRequest<Post>, IRequest<PaginationResponse<Post, PostResponse>>
     {
+        public long? FreelancerId { get; set; }
         public long? AccountId { get; set; }
         public string? Keyword { get; set; }
         public long[]? MajorIds { get; set; } 
         public ServiceType? ServiceType { get; set; }
+        public PostStatus? Status { get; set; }
         
         public override Expression<Func<Post, bool>> GetExpressions()
         {
@@ -44,6 +46,16 @@ namespace ClientService.Application.Posts.Queries
             if (AccountId != null)
             {
                 expression = expression.And(post => post.AccountId == AccountId);
+            }
+            
+            if (FreelancerId != null)
+            {
+                expression = expression.And(post => post.FreelancerId == FreelancerId);
+            }
+            
+            if (Status != null)
+            {
+                expression = expression.And(post => Status.Equals(post.Status));
             }
 
             return expression;

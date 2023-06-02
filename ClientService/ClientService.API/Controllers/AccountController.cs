@@ -2,6 +2,7 @@ using Amazon.Runtime;
 using ClientService.Application.Accounts.Commands;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Accounts.Queries;
+using ClientService.Application.Common.Enums;
 using ClientService.Application.Common.Models.Response;
 using ClientService.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -36,9 +37,13 @@ public class AccountController : ApiControllerBase
     }
     
     [HttpGet]
-    [Authorize(Roles = "User")]
     public async Task<ActionResult<PaginationResponse<Account, AccountResponse>>> GetAllAccounts([FromQuery] GetAllAccountRequest request)
     {
+        if (string.IsNullOrWhiteSpace(request.SortColumn))
+        {
+            request.SortColumn = "CreatedAt";
+            request.SortDir = SortDirection.Desc;
+        }
         return await Mediator.Send(request);
     }
     

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClientService.Application.Accounts.Models;
+using ClientService.Application.Majors.Models;
 
 namespace ClientService.Application.Posts.Models
 {
@@ -12,13 +14,7 @@ namespace ClientService.Application.Posts.Models
 
         public string Title { get; set; } = default!;
         
-        public long AccountId { get; set; }
-        
-        public long? AcceptedAccountId { get; set; }
-        
         public PostStatus Status { get; set; }
-        
-        public long MajorId { get; set; }
         
         public string JobPosition { get; set; } = default!;
         
@@ -43,5 +39,11 @@ namespace ClientService.Application.Posts.Models
         public DateTimeOffset? UpdatedAt { get; set; }
 
         public string? Description { get; set; }
+        
+        public MajorResponse Major { get; set; } = default!;
+
+        public AccountResponse Account { get; set; } = default!;
+    
+        public AccountResponse? Freelancer { get; set; }
     }
 }

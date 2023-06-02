@@ -17,6 +17,13 @@ public class ApiException : Exception
         _message = responseCode.GetDescription();
     }
     
+    public ApiException(ResponseCode responseCode, string De)
+    {
+        _errorCode = (int) responseCode;
+        _error = responseCode.ToString();
+        _message = responseCode.GetDescription();
+    }
+    
     public ApiException(int errorCode, string error, string message)
     {
         _errorCode = errorCode;
