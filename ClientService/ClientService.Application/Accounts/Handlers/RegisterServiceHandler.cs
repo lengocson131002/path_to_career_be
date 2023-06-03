@@ -45,7 +45,6 @@ public class RegisterServiceHandler : IRequestHandler<RegisterServiceRequest, St
             Account = currentAccount,
             Amount =  service.Price - (decimal) service.Discount * service.Price,
             PayMethod = request.PaymentMethod,
-            PaymentTime = DateTimeOffset.UtcNow
         };
         
         var registration = new AccountService()

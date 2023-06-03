@@ -84,7 +84,7 @@ public class ChatHub : Hub
         );
         var post = await postQuery.FirstOrDefaultAsync();
         
-        if (post == null 
+        if (post == null
             || post.Freelancer == null 
             || (post.Account.Id != userConnection.AccountId && post.Freelancer.Id != userConnection.AccountId))
         {

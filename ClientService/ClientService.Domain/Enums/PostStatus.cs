@@ -2,6 +2,6 @@
 {
     public enum PostStatus
     {
-        New, Accepted, Done
+        New, Paid, Accepted, Done
     }
 }

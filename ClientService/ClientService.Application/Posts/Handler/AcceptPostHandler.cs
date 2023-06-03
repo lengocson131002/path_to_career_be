@@ -20,7 +20,7 @@ public class AcceptPostHandler : IRequestHandler<AcceptPostRequest, StatusRespon
             throw new ApiException(ResponseCode.PostNotFound);
         }
 
-        if (!PostStatus.New.Equals(post.Status))
+        if (!PostStatus.Paid.Equals(post.Status))
         {
             throw new ApiException(ResponseCode.InvalidPostStatus);
         }

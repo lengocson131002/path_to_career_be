@@ -3,7 +3,7 @@ using ClientService.Domain.Enums;
 
 namespace ClientService.Domain.Entities;
 
-public class Transaction
+public class Transaction : BaseAuditableEntity
 {
     [Key]
     public long Id { get; set; }
@@ -18,6 +18,9 @@ public class Transaction
     
     public PaymentMethod PayMethod { get; set; }
     
-    public DateTimeOffset PaymentTime { get; set; }
-    
+    public string Content { get; set; } = default!;
+
+    public Post Post { get; set; } = default!;
+
+    public TransactionStatus Status { get; set; } = TransactionStatus.New;
 }

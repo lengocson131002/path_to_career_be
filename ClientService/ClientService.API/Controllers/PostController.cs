@@ -5,6 +5,7 @@ using ClientService.Application.Messages.Queries;
 using ClientService.Application.Posts.Commands;
 using ClientService.Application.Posts.Models;
 using ClientService.Application.Posts.Queries;
+using ClientService.Application.Transactions.Models;
 using ClientService.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -139,6 +140,14 @@ namespace ClientService.API.Controllers
         public async Task<ActionResult<ListResponse<MessageResponse>>> GetPostMessages([FromRoute] long id)
         {
             var request = new GetPostMessagesRequest(id);
+            return await Mediator.Send(request);
+        }
+        
+        [HttpPost("{id:int}/pay")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult<TransactionResponse>> PayForPost([FromRoute] long id, [FromBody] PayForPostRequest request)
+        {
+            request.PostId = id;
             return await Mediator.Send(request);
         }
     }

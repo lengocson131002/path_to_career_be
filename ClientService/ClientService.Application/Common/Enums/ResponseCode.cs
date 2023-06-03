@@ -12,7 +12,7 @@ public enum ResponseCode
     
     [Description("Unauthorized")] Unauthorized = 4,
     
-    [Description("Invalid query")] InvalidQuery = 5,
+    [Description("Invalid query. Account is forbbiden for these query parameters")] InvalidQuery = 5,
     
     // File 
     
@@ -60,5 +60,7 @@ public enum ResponseCode
     [Description("Service's name existed")] ServiceErrorExistedName = 61,
     [Description("Account has current active service")] ServiceErrorAccountHasCurrentActiveService = 62,
     [Description("Account has no current active service")] ServiceErrorAccountHasNoActiveService = 63,
-    
+ 
+    // Transaction
+    [Description("Transaction not found")] TransactionNotFound = 70,
 }

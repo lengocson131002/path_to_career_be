@@ -6,6 +6,7 @@ using ClientService.Application.Messages.Models;
 using ClientService.Application.Reviews.Models;
 using ClientService.Application.Services.Commands;
 using ClientService.Application.Services.Models;
+using ClientService.Application.Transactions.Models;
 using ClientService.Domain.Entities;
 
 namespace ClientService.Application.Common.Mappings;
@@ -39,5 +40,11 @@ public class MappingProfiles : Profile
         
         // Message 
         CreateMap<Message, MessageResponse>();
+        
+        // Transaction
+        CreateMap<Transaction, TransactionResponse>()
+            .ForMember(des => des.PostId,
+                opt => opt.MapFrom(src => src.Post.Id));
+        CreateMap<Transaction, TransactionDetailResponse>();
     }
 }
