@@ -41,7 +41,8 @@ public class LoginWithGoogleHandler : IRequestHandler<LoginWithGoogleRequest, To
             {
                 Email = payload.Email,
                 FullName = payload.Name ?? payload.Email,
-                Role = Role.User
+                Role = Role.User,
+                Avatar = payload.Picture
             };
             await _unitOfWork.AccountRepository.AddAsync(account);
         }
