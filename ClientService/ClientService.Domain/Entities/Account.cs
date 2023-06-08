@@ -17,6 +17,8 @@ public class Account : BaseAuditableEntity
 
     public Role Role { get; set; }
 
+    public bool IsAccepted { get; set; }
+
     public string FullName { get; set; } = default!;
     
     public string? Description { get; set; }
