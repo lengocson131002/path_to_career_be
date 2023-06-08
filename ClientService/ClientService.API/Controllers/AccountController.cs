@@ -29,7 +29,7 @@ public class AccountController : ApiControllerBase
     }
 
     [HttpPost("accept/{id}")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<StatusResponse>> AcceptFreelancer([FromRoute] long id)
     {
         AcceptFreelancerRequest request = new AcceptFreelancerRequest();
