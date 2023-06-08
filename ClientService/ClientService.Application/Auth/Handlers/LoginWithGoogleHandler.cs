@@ -46,7 +46,12 @@ public class LoginWithGoogleHandler : IRequestHandler<LoginWithGoogleRequest, To
             };
             await _unitOfWork.AccountRepository.AddAsync(account);
         }
-        
+
+        if (account.Role.Equals(Role.Freelancer) && account.IsAccepted == false)
+        {
+            throw new ApiException(ResponseCode.AuthErrorInvalidFreelancerAccount);
+        }
+
         // Generate jwt token 
         var accessToken = _jwtService.GenerateJwtToken(account);
         var refreshToken = _jwtService.GenerateJwtRefreshToken(account);
