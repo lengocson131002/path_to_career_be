@@ -1,6 +1,7 @@
 using ClientService.Application.Auth.Commands;
 using ClientService.Application.Auth.Models;
 using ClientService.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace ClientService.Application.Auth.Handlers;
@@ -34,7 +35,7 @@ public class LoginWithGoogleHandler : IRequestHandler<LoginWithGoogleRequest, To
         // Check if user existed
         var accountQuery = await _unitOfWork.AccountRepository.GetAsync(acc => acc.Email.ToLower().Equals(payload.Email.ToLower()));
 
-        var account = accountQuery.FirstOrDefault();
+        var account = await accountQuery.FirstOrDefaultAsync(cancellationToken);
         if (account == null)
         {
             account = new Account()
