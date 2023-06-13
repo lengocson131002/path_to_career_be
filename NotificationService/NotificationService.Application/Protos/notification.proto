@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "NotificationService.Application";
+
+package notification;
+
+message NotificationRequest {
+  int64 Id = 1;
+  string Type = 2;
+  string Content = 3;
+  string Data = 4;
+  int64 AccountId = 5;
+  string ReferenceId = 6;
+  int64 CreatedAt = 7;
+  int64 UpdatedAt = 8;
+  int64 DeletedAt = 9;
+  int64 ReadAt = 10;
+}
+
+message NotificationResponse {
+  bool Status = 1;
+}
+
+service Notification {
+  rpc PushNotification (NotificationRequest) returns (NotificationResponse);
+}

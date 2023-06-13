@@ -64,4 +64,8 @@ public enum ResponseCode
  
     // Transaction
     [Description("Transaction not found")] TransactionNotFound = 70,
+    
+    // Notification
+    [Description("Notification not found")] NotificationNotFound = 71,
+
 }

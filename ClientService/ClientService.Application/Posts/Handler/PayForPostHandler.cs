@@ -1,7 +1,10 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using AutoMapper;
 using ClientService.Application.Common.Constants;
 using ClientService.Application.Transactions.Models;
 using ClientService.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Posts.Handler;
 
@@ -10,12 +13,14 @@ public class PayForPostHandler : IRequestHandler<PayForPostRequest, TransactionR
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICurrentAccountService _currentAccountService;
     private readonly IMapper _mapper;
+    private readonly INotificationService _notificationService;
 
-    public PayForPostHandler(IUnitOfWork unitOfWork, ICurrentAccountService currentAccountService, IMapper mapper)
+    public PayForPostHandler(IUnitOfWork unitOfWork, ICurrentAccountService currentAccountService, IMapper mapper, INotificationService notificationService)
     {
         _unitOfWork = unitOfWork;
         _currentAccountService = currentAccountService;
         _mapper = mapper;
+        _notificationService = notificationService;
     }
 
     public async Task<TransactionResponse> Handle(PayForPostRequest request, CancellationToken cancellationToken)
@@ -42,6 +47,24 @@ public class PayForPostHandler : IRequestHandler<PayForPostRequest, TransactionR
         
         // Save changes
         await _unitOfWork.SaveChangesAsync();
+        
+        // Notify for admin to confirm
+        var adminQuery = await _unitOfWork.AccountRepository.GetAsync(acc => Role.Admin.Equals(acc.Role));
+        var admins = await adminQuery.ToListAsync(cancellationToken);
+
+        foreach (var admin in admins)
+        {
+            var notification = new Notification(NotificationType.TransactionCreated)
+            {
+                AccountId = admin.Id,
+                Data = JsonSerializer.Serialize(transaction, new JsonSerializerOptions()
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve
+                }),
+                ReferenceId = transaction.Id.ToString(),
+            };
+            await _notificationService.PushNotification(notification);
+        }
 
         return _mapper.Map<TransactionResponse>(transaction);
     }
