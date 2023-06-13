@@ -57,7 +57,7 @@ build-image-notification:
   only:
     - develop
 
-deploy-client:
+deploy-notification:
   stage: deploy
   allow_failure: false
   script:
