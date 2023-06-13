@@ -7,4 +7,6 @@ public class AccountDetailResponse : AccountResponse
 {
     public RegistrationResponse? RegisteredService { get; set; }
     
+    public int? PostCount { get; set; }
+
 }

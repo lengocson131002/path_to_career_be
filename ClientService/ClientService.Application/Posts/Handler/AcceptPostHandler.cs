@@ -25,11 +25,6 @@ public class AcceptPostHandler : IRequestHandler<AcceptPostRequest, StatusRespon
             throw new ApiException(ResponseCode.InvalidPostStatus);
         }
 
-        // if (post.TransactionId == null)
-        // {
-        //     throw new ApiException(ResponseCode.InvalidPostStatus);
-        // }
-
         var currentAccount = await _currentAccountService.GetCurrentAccount();
         post.Freelancer = currentAccount;
         post.Status = PostStatus.Accepted;

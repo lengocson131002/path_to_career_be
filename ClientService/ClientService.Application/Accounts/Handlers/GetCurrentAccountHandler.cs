@@ -28,25 +28,14 @@ public class GetCurrentAccountHandler : IRequestHandler<GetCurrentAccountRequest
             acc => acc.Majors,
             acc => acc.Reviews
         });
-
-        var response = _mapper.Map<AccountDetailResponse>(account); 
-
-        // Get current registered service
-        var registrationQuery = await _unitOfWork.AccountServiceRepository.GetAsync(
-            x => x.AccountId == account.Id
-                                   && x.StartTime.AddMonths(x.Service.Duration) > DateTimeOffset.UtcNow
-                                   && x.CancelTime == null,
-            includes: new ListResponse<Expression<Func<AccountService, object>>>()
-            {
-                reg => reg.Service
-            });
-
-        var registration = await registrationQuery.FirstOrDefaultAsync(cancellationToken);
-        if (registration != null)
-        {
-            response.RegisteredService = _mapper.Map<RegistrationResponse>(registration);
-        }
         
+        // Count post
+        var postQuery = await _unitOfWork.PostRepository.GetAsync(post => post.AccountId == account.Id);
+        var postCount = await postQuery.CountAsync(cancellationToken);
+
+        var response = _mapper.Map<AccountDetailResponse>(account);
+        response.PostCount = postCount;
+
         return response;
     }
 }

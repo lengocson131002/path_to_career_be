@@ -5,6 +5,8 @@ using ClientService.Application.Common.Constants;
 using ClientService.Application.Transactions.Models;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace ClientService.Application.Posts.Handler;
 
@@ -14,13 +16,20 @@ public class PayForPostHandler : IRequestHandler<PayForPostRequest, TransactionR
     private readonly ICurrentAccountService _currentAccountService;
     private readonly IMapper _mapper;
     private readonly INotificationService _notificationService;
-
-    public PayForPostHandler(IUnitOfWork unitOfWork, ICurrentAccountService currentAccountService, IMapper mapper, INotificationService notificationService)
+    private readonly IConfiguration _configuration;
+    private readonly ILogger<PayForPostHandler> _logger;
+    public PayForPostHandler(IUnitOfWork unitOfWork, 
+        ICurrentAccountService currentAccountService, 
+        IMapper mapper, 
+        INotificationService notificationService, 
+        IConfiguration configuration, ILogger<PayForPostHandler> logger)
     {
         _unitOfWork = unitOfWork;
         _currentAccountService = currentAccountService;
         _mapper = mapper;
         _notificationService = notificationService;
+        _configuration = configuration;
+        _logger = logger;
     }
 
     public async Task<TransactionResponse> Handle(PayForPostRequest request, CancellationToken cancellationToken)
@@ -31,12 +40,12 @@ public class PayForPostHandler : IRequestHandler<PayForPostRequest, TransactionR
         {
             throw new ApiException(ResponseCode.PostNotFound);
         }
-
+        
         var transaction = new Transaction()
         {
             Account = currentAccount,
             PayMethod = request.Method,
-            Amount = ServicePrice.ServicePrices[post.ServiceType],
+            Amount = GetServicePrice(post.ServiceType),
             Content = $"{post.ServiceType}-{post.Id}".ToUpper()
         };
 
@@ -67,5 +76,23 @@ public class PayForPostHandler : IRequestHandler<PayForPostRequest, TransactionR
         }
 
         return _mapper.Map<TransactionResponse>(transaction);
+    }
+
+    private decimal GetServicePrice(ServiceType serviceType)
+    {
+        try
+        {
+            var servicePriceConfig = _configuration[$"Settings:ServicePrice:{serviceType.ToString()}"];
+            if (servicePriceConfig != null)
+            {
+                return decimal.Parse(servicePriceConfig);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogInformation("Get service price from appsetting error: {0}", ex.Message);
+        }
+        
+        return Settings.ServicePrices[serviceType];
     }
 }
