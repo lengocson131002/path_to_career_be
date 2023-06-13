@@ -49,4 +49,5 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<Message> Messages => Set<Message>();
 
+    public DbSet<Notification> Notifications => Set<Notification>();
 }

@@ -29,8 +29,9 @@ public enum ResponseCode
     [Description("Invalid refresh token")] AuthErrorInvalidRefreshToken = 21,
     
     [Description("Invalid google ID token")] AuthErrorInvalidGoogleIdToken = 22,
+    [Description("Freelancer account is not accepted")] AuthErrorInvalidFreelancerAccount = 23,
 
-    
+
     // Account
     [Description("Email existed")] AccountErrorEmailExisted = 30,
     
@@ -63,4 +64,8 @@ public enum ResponseCode
  
     // Transaction
     [Description("Transaction not found")] TransactionNotFound = 70,
+    
+    // Notification
+    [Description("Notification not found")] NotificationNotFound = 71,
+
 }

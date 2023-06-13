@@ -31,6 +31,11 @@ public class LoginHandler : IRequestHandler<LoginRequest, TokenResponse>
             throw new ApiException(ResponseCode.AuthErrorInvalidEmailOrPassword);
         }
 
+        if (user.Role.Equals(Role.Freelancer) && user.IsAccepted == false)
+        {
+            throw new ApiException(ResponseCode.AuthErrorInvalidFreelancerAccount);
+        }
+
         var token = _jwtService.GenerateJwtToken(user);
         var refreshToken = _jwtService.GenerateJwtRefreshToken(user);
 

@@ -22,5 +22,8 @@ public interface IApplicationDbContext
     DbSet<Transaction> Transactions { get; }
     
     DbSet<Message> Messages { get; }
+    
+    DbSet<Notification> Notifications { get; }
+
 
 }
