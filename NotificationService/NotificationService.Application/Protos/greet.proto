@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "NotificationService.App";
+option csharp_namespace = "NotificationService.Application";
 
 package greet;
 

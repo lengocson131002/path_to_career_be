@@ -1,0 +1,78 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "parent_pipeline"
+
+stages:
+  - build-code
+  - build-image
+  - deploy
+
+variables:
+  SERVICE_PATH: NotificationService/NotificationService.Application
+  SERVICE_FILE: Notification.Application.csproj
+  SERVICE_NAME: p2c-notification-service
+  NUGET_PACKAGES: $CI_PROJECT_DIR/.nuget/packages
+  NUGET_HTTP_CACHE_PATH: $CI_PROJECT_DIR/.nuget/cache
+  IMAGE_TAG: ${CI_REGISTRY_IMAGE}/${SERVICE_NAME}:$CI_COMMIT_REF_SLUG
+  ENV_FILE: $env_notification
+  PORT: $NOTIFICATION_SERVICE_PORT
+  GRPC_PORT: $NOTIFICATION_SERVICE_GRPC_PORT
+  DOCKER_NETWORK: p2c-net
+
+build-code-notification:
+  stage: build-code
+  image: mcr.microsoft.com/dotnet/sdk:7.0
+  allow_failure: false
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .nuget
+  script:
+    - dotnet restore $SERVICE_PATH/$SERVICE_FILE
+    - dotnet publish $SERVICE_PATH/$SERVICE_FILE -o publish/ -c release/
+  artifacts:
+    paths:
+      - publish
+    expire_in: 2 hrs
+  tags:
+    - docker
+
+build-image-notification:
+  stage: build-image
+  image: docker:20.10.16
+  allow_failure: false
+  services:
+    - docker:20.10.16-dind
+
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG -f $SERVICE_PATH/Dockerfile .
+    - docker push $IMAGE_TAG
+  needs:
+    - build-code-notification
+  dependencies:
+    - build-code-notification
+  tags:
+    - docker
+  only:
+    - develop
+
+deploy-client:
+  stage: deploy
+  allow_failure: false
+  script:
+    - cp $ENV_FILE .env
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker stop $SERVICE_NAME || true;
+    - docker system prune -a -f;
+    - docker pull $IMAGE_TAG;
+    - docker container run -d --restart unless-stopped --network $DOCKER_NETWORK --env-file .env --name $SERVICE_NAME -p $PORT:80 $GRPC_PORT:9090 $IMAGE_TAG;
+
+  needs:
+    - build-image-notification
+  dependencies:
+    - build-image-notification
+  tags:
+    - shell
+  only:
+    - develop

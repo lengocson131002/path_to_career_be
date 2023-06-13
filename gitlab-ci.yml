@@ -1,0 +1,25 @@
+variables:
+  DEVELOP_BRANCH: develop
+
+workflow:
+  rules:
+    - if: "$CI_MERGE_REQUEST_IID"
+    - if: "$CI_COMMIT_BRANCH == $DEVELOP_BRANCH"
+
+stages:
+  - trigger-pineline
+
+trigger-client-service:
+  stage: trigger-pineline
+  trigger:
+    strategy: depend
+    include:
+      - local: cicd/client.yml
+
+trigger-notification-service:
+  stage: trigger-pineline
+  trigger:
+    strategy: depend
+    include:
+      - local: cicd/notification.yml
+

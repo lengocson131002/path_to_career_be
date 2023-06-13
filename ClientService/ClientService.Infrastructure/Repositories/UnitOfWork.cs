@@ -18,6 +18,7 @@ public class UnitOfWork : IUnitOfWork
     private IBaseRepository<Review>? _reviewRepository;
     private IBaseRepository<Service>? _serviceRepository;
     private IBaseRepository<Transaction>? _transactionRepository;
+    private IBaseRepository<Notification>? _notificationRepository;
 
     public UnitOfWork(ApplicationDbContext dbContext)
     {
@@ -46,6 +47,9 @@ public class UnitOfWork : IUnitOfWork
         _transactionRepository ??= new BaseRepository<Transaction>(_dbContext);
 
     public IBaseRepository<Message> MessageRepository => _messageRepository ??= new BaseRepository<Message>(_dbContext);
+
+    public IBaseRepository<Notification> NotificationRepository =>
+        _notificationRepository ??= new BaseRepository<Notification>(_dbContext);
 
     public int SaveChanges()
     {

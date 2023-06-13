@@ -1,7 +1,6 @@
 using Grpc.Core;
-using NotificationService.App;
 
-namespace NotificationService.App.Services;
+namespace NotificationService.Application.Services;
 
 public class GreeterService : Greeter.GreeterBase
 {

@@ -21,6 +21,8 @@ public interface IUnitOfWork
     IBaseRepository<Transaction> TransactionRepository { get; }
     
     IBaseRepository<Message> MessageRepository { get; }
+    
+    IBaseRepository<Notification> NotificationRepository { get; }
 
     int SaveChanges();
 

@@ -1,4 +1,6 @@
-using NotificationService.App.Services;
+using System.Text.Json.Serialization;
+using NotificationService.Application.Services;
+using NotificationService.Application.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,11 +9,28 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+builder.Services.AddSingleton<NotificationConnectionManager>();
+builder.Services.AddSignalR()
+    .AddJsonProtocol(options =>
+    {
+        options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
+
+builder.Services.AddCors();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials());
+
 app.MapGrpcService<GreeterService>();
+app.MapGrpcService<NotificationServiceImpl>();
+
+app.MapHub<NotificationHub>("/notification");
 
 app.MapGet("/",
     () =>
