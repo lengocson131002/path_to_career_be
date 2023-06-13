@@ -64,9 +64,8 @@ deploy-notification:
     - cp $ENV_FILE .env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker stop $SERVICE_NAME || true;
-    - docker system prune -a -f;
     - docker pull $IMAGE_TAG;
-    - docker container run -d --restart unless-stopped --network $DOCKER_NETWORK --env-file .env --name $SERVICE_NAME -p $PORT:80 -p $GRPC_PORT:9090 $IMAGE_TAG;
+    - docker container run --rm -d --restart unless-stopped --network $DOCKER_NETWORK --env-file .env --name $SERVICE_NAME -p $PORT:80 -p $GRPC_PORT:9090 $IMAGE_TAG;
 
   needs:
     - build-image-notification
