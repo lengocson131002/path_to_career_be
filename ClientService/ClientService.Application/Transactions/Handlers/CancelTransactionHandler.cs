@@ -1,4 +1,6 @@
 using System.Linq.Expressions;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using ClientService.Application.Transactions.Commands;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +10,12 @@ namespace ClientService.Application.Transactions.Handlers;
 public class CancelTransactionHandler : IRequestHandler<CancelTransactionRequest, StatusResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly INotificationService _notificationService;
 
-    public CancelTransactionHandler(IUnitOfWork unitOfWork)
+    public CancelTransactionHandler(IUnitOfWork unitOfWork, INotificationService notificationService)
     {
         _unitOfWork = unitOfWork;
+        _notificationService = notificationService;
     }
 
     public async Task<StatusResponse> Handle(CancelTransactionRequest request, CancellationToken cancellationToken)
@@ -38,6 +42,17 @@ public class CancelTransactionHandler : IRequestHandler<CancelTransactionRequest
         
         await _unitOfWork.PostRepository.UpdateAsync(post);
         await _unitOfWork.SaveChangesAsync();
+        
+        var userNotification = new Notification(NotificationType.TransactionCanceled)
+        {
+            AccountId = post.AccountId,
+            Data = JsonSerializer.Serialize(post, new JsonSerializerOptions()
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            }),
+            ReferenceId = post.Id.ToString(),
+        };
+        await _notificationService.PushNotification(userNotification);
         
         return new StatusResponse(true);
     }

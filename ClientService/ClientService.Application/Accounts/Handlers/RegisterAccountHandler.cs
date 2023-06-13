@@ -1,9 +1,14 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using AutoMapper;
 using ClientService.Application.Accounts.Commands;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Common.Extensions;
 using ClientService.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ClientService.Application.Accounts.Handlers;
 
@@ -12,12 +17,18 @@ public class RegisterAccountHandler : IRequestHandler<RegisterAccountRequest, Ac
     private readonly ILogger<RegisterAccountHandler> _logger;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
-
-    public RegisterAccountHandler(IUnitOfWork unitOfWork, ILogger<RegisterAccountHandler> logger, IMapper mapper)
+    private readonly INotificationService _notificationService;
+    
+    public RegisterAccountHandler(
+        IUnitOfWork unitOfWork, 
+        ILogger<RegisterAccountHandler> logger, 
+        IMapper mapper, 
+        INotificationService notificationService)
     {
         _unitOfWork = unitOfWork;
         _logger = logger;
         _mapper = mapper;
+        _notificationService = notificationService;
     }
 
     public async Task<AccountResponse> Handle(RegisterAccountRequest request, CancellationToken cancellationToken)
@@ -50,8 +61,31 @@ public class RegisterAccountHandler : IRequestHandler<RegisterAccountRequest, Ac
         await _unitOfWork.AccountRepository.AddAsync(account);
         await _unitOfWork.SaveChangesAsync();
 
+        var response = _mapper.Map<AccountResponse>(account);
+
         _logger.LogInformation("Create new Account: {0}", account.Email);
 
-        return _mapper.Map<AccountResponse>(account);
+        // Push notification to admins
+        if (Role.Freelancer.Equals(account.Role))
+        {
+            var adminQuery = await _unitOfWork.AccountRepository.GetAsync(acc => Role.Admin.Equals(acc.Role));
+            var admins = await adminQuery.ToListAsync(cancellationToken);
+
+            foreach (var admin in admins)
+            {
+                var notification = new Notification(NotificationType.FreelancerCreated)
+                {
+                    AccountId = admin.Id,
+                    Data = JsonSerializer.Serialize(account, new JsonSerializerOptions()
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve
+                    }),
+                    ReferenceId = account.Id.ToString(),
+                };
+                await _notificationService.PushNotification(notification);
+            }
+        }
+
+        return response;
     }
 }

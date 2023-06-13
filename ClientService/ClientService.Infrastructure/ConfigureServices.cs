@@ -74,6 +74,9 @@ public static class ConfigureServices
             });
         services.AddSingleton<ChatConnectionManager>();
             
+        // NotificationService
+        services.AddScoped<INotificationService, Services.NotificationService>();
+        
         return services;
     }
 }
