@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using AutoMapper;
 using ClientService.Application.Accounts.Commands;
+using ClientService.Application.Common.Persistence;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

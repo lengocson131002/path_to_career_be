@@ -1,3 +1,4 @@
+using ClientService.Application.Common.Persistence;
 using Microsoft.Extensions.Logging;
 
 namespace ClientService.Application.Posts.Handler;

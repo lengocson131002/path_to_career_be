@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using AutoMapper;
 using ClientService.Application.Common.Constants;
 using ClientService.Application.Common.Extensions;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Posts.Models;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,9 @@ public class CreatePostHandler : IRequestHandler<CreatePostRequest, PostResponse
         
         var postQuery = await _unitOfWork.PostRepository.GetAsync(p => p.AccountId == currentAccount.Id);
         var postCount = await postQuery.CountAsync(cancellationToken);
+        await _unitOfWork.PostRepository.AddAsync(post);
+        await _unitOfWork.SaveChangesAsync();
+        
         if (postCount < freeCount)
         {
             _logger.LogInformation("Free post");
@@ -81,9 +85,6 @@ public class CreatePostHandler : IRequestHandler<CreatePostRequest, PostResponse
                 await _notificationService.PushNotification(notification);
             }
         }
-
-        await _unitOfWork.PostRepository.AddAsync(post);
-        await _unitOfWork.SaveChangesAsync();
         
         return _mapper.Map<PostResponse>(post);
     }

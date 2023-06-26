@@ -1,4 +1,5 @@
 using AutoMapper;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Notifications.Commands;
 using ClientService.Application.Notifications.Models;
 

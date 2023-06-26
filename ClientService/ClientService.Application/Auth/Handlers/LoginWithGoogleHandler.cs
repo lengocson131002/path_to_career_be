@@ -1,5 +1,6 @@
 using ClientService.Application.Auth.Commands;
 using ClientService.Application.Auth.Models;
+using ClientService.Application.Common.Persistence;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

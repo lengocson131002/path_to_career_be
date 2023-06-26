@@ -1,4 +1,5 @@
 using AutoMapper;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Notifications.Models;
 using ClientService.Application.Notifications.Queries;
 using ClientService.Domain.Entities;

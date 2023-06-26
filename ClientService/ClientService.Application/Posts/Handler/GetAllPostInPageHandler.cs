@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Posts.Models;
 using ClientService.Application.Posts.Queries;
 using ClientService.Domain.Entities;

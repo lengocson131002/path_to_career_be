@@ -9,6 +9,7 @@
     <ItemGroup>
         <Folder Include="Auth\Queries" />
         <Folder Include="Common\Security" />
+        <Folder Include="Dashboard\Commands" />
         <Folder Include="Greeting\Queries" />
         <Folder Include="Majors\Commands" />
         <Folder Include="Messages\Commands" />

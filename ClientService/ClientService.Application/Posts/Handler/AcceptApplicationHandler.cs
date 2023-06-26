@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClientService.Application.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Posts.Handler

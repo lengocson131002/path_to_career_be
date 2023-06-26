@@ -3,6 +3,7 @@ using ClientService.Application.Posts.Models;
 using ClientService.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using ClientService.Application.Common.Extensions;
+using ClientService.Application.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Posts.Handler

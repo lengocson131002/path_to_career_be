@@ -1,3 +1,5 @@
+using ClientService.Application.Common.Persistence;
+
 namespace ClientService.Application.Posts.Handler;
 
 public class AcceptPostHandler : IRequestHandler<AcceptPostRequest, StatusResponse>

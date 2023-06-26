@@ -6,6 +6,7 @@ using AutoMapper;
 using ClientService.Application.Common.Enums;
 using ClientService.Application.Common.Exceptions;
 using ClientService.Application.Common.Interfaces;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Messages.Models;
 using ClientService.Domain.Entities;
 using ClientService.Domain.Enums;
@@ -71,7 +72,7 @@ public class ChatHub : Hub
 
         // push notification when partner is not in the post chat
         var partnerId = connection.PartnerId;
-        if (partnerId != null && _chatConnectionManager.Connections.Values.All(con => con.AccountId != partnerId))
+        if (partnerId != null)
         {
             var notification = new Notification(NotificationType.MessageCreated)
             {

@@ -1,5 +1,6 @@
 using System.Collections;
 using AutoMapper;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Majors.Models;
 using ClientService.Application.Majors.Queries;
 

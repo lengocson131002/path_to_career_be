@@ -1,5 +1,6 @@
 using System.Linq.Dynamic.Core;
 using ClientService.Application.Common.Interfaces;
+using ClientService.Application.Common.Persistence;
 using ClientService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

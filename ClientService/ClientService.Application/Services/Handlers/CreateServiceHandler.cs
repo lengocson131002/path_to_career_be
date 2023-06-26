@@ -1,4 +1,5 @@
 using AutoMapper;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Services.Commands;
 using ClientService.Application.Services.Models;
 using ClientService.Domain.Entities;

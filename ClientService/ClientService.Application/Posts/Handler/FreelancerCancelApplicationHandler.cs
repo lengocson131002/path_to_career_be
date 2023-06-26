@@ -1,4 +1,5 @@
 using AutoMapper;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Posts.Models;
 using Microsoft.EntityFrameworkCore;
 

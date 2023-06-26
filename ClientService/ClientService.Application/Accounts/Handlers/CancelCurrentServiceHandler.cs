@@ -1,5 +1,6 @@
 using AutoMapper;
 using ClientService.Application.Accounts.Commands;
+using ClientService.Application.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Application.Accounts.Handlers;

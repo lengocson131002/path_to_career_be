@@ -1,7 +1,7 @@
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClientService.Application.Common.Interfaces;
+namespace ClientService.Application.Common.Persistence;
 
 public interface IApplicationDbContext
 {

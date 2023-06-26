@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json.Serialization;
 using ClientService.Application.Common.Interfaces;
+using ClientService.Application.Common.Persistence;
 using ClientService.Infrastructure.Persistence;
 using ClientService.Infrastructure.Repositories;
 using ClientService.Infrastructure.Services;

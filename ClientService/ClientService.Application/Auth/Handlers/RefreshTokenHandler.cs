@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using ClientService.Application.Auth.Commands;
 using ClientService.Application.Auth.Models;
+using ClientService.Application.Common.Persistence;
 
 namespace ClientService.Application.Auth.Handlers;
 

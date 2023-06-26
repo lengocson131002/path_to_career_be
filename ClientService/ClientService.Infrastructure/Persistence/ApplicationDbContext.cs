@@ -1,4 +1,5 @@
 using ClientService.Application.Common.Interfaces;
+using ClientService.Application.Common.Persistence;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

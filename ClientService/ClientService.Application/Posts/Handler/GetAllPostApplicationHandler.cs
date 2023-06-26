@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ClientService.Application.Common.Persistence;
 
 namespace ClientService.Application.Posts.Handler
 {

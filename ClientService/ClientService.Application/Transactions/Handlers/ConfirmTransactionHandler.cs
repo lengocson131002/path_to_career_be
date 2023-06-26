@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Transactions.Commands;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;

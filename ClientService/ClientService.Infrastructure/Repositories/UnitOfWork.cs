@@ -1,89 +1,51 @@
-using ClientService.Application.Common.Interfaces;
-using ClientService.Domain.Entities;
+using ClientService.Application.Common.Persistence;
+using ClientService.Application.Common.Persistence.Repositories;
 using ClientService.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 
 namespace ClientService.Infrastructure.Repositories;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork : BaseUnitOfWork, IUnitOfWork
 {
     private readonly ApplicationDbContext _dbContext;
-    private IBaseRepository<Account>? _accountRepository;
-    private IBaseRepository<AccountService>? _accountServiceRepository;
-    private bool _disposed;
-    private IBaseRepository<Major>? _majorRepository;
-    private IBaseRepository<Message>? _messageRepository;
-    private IBaseRepository<PostApplication>? _postApplicationRepository;
-    private IBaseRepository<Post>? _postRepository;
-    private IBaseRepository<Review>? _reviewRepository;
-    private IBaseRepository<Service>? _serviceRepository;
-    private IBaseRepository<Transaction>? _transactionRepository;
-    private IBaseRepository<Notification>? _notificationRepository;
 
-    public UnitOfWork(ApplicationDbContext dbContext)
+    private IAccountRepository? _accountRepository;
+    private IAccountServiceRepository? _accountServiceRepository;
+    private IMajorRepository? _majorRepository;
+    private IMessageRepository? _messageRepository;
+    private INotificationRepository? _notificationRepository;
+    private IPostApplicationRepository? _postApplicationRepository;
+    private IPostRepository? _postRepository;
+    private IReviewRepository? _reviewRepository;
+    private IServiceRepository? _serviceRepository;
+    private ITransactionRepository? _transactionRepository;
+
+    public UnitOfWork(ApplicationDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public IBaseRepository<Account> AccountRepository =>
-        _accountRepository ??= new BaseRepository<Account>(_dbContext);
+    public IAccountRepository AccountRepository =>
+        _accountRepository ??= new AccountRepository(_dbContext);
 
-    public IBaseRepository<Post> PostRepository =>
-        _postRepository ??= new BaseRepository<Post>(_dbContext);
+    public IPostRepository PostRepository => _postRepository ??= new PostRepository(_dbContext);
 
-    public IBaseRepository<PostApplication> PostApplicationRepository =>
-        _postApplicationRepository ??= new BaseRepository<PostApplication>(_dbContext);
+    public IPostApplicationRepository PostApplicationRepository =>
+        _postApplicationRepository ??= new PostApplicationRepository(_dbContext);
 
-    public IBaseRepository<Major> MajorRepository => _majorRepository ??= new BaseRepository<Major>(_dbContext);
+    public IMajorRepository MajorRepository => _majorRepository ??= new MajorRepository(_dbContext);
 
-    public IBaseRepository<Review> ReviewRepository => _reviewRepository ??= new BaseRepository<Review>(_dbContext);
+    public IReviewRepository ReviewRepository => _reviewRepository ??= new ReviewRepository(_dbContext);
 
-    public IBaseRepository<Service> ServiceRepository => _serviceRepository ??= new BaseRepository<Service>(_dbContext);
+    public IServiceRepository ServiceRepository => _serviceRepository ??= new ServiceRepository(_dbContext);
 
-    public IBaseRepository<AccountService> AccountServiceRepository =>
-        _accountServiceRepository ??= new BaseRepository<AccountService>(_dbContext);
+    public IAccountServiceRepository AccountServiceRepository =>
+        _accountServiceRepository ??= new AccountServiceRepository(_dbContext);
 
-    public IBaseRepository<Transaction> TransactionRepository =>
-        _transactionRepository ??= new BaseRepository<Transaction>(_dbContext);
+    public ITransactionRepository TransactionRepository =>
+        _transactionRepository ??= new TransactionRepository(_dbContext);
 
-    public IBaseRepository<Message> MessageRepository => _messageRepository ??= new BaseRepository<Message>(_dbContext);
+    public IMessageRepository MessageRepository => _messageRepository ??= new MessageRepository(_dbContext);
 
-    public IBaseRepository<Notification> NotificationRepository =>
-        _notificationRepository ??= new BaseRepository<Notification>(_dbContext);
-
-    public int SaveChanges()
-    {
-        return _dbContext.SaveChanges();
-    }
-
-    public async Task<int> SaveChangesAsync()
-    {
-        return await _dbContext.SaveChangesAsync();
-    }
-
-    public void Rollback()
-    {
-        foreach (var entry in _dbContext.ChangeTracker.Entries())
-            switch (entry.State)
-            {
-                case EntityState.Added:
-                    entry.State = EntityState.Detached;
-                    break;
-            }
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!_disposed)
-            if (disposing)
-                _dbContext.Dispose();
-
-        _disposed = true;
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
+    public INotificationRepository NotificationRepository =>
+        _notificationRepository ??= new NotificationRepository(_dbContext);
 }

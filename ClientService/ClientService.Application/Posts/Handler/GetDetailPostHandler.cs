@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ClientService.Application.Common.Persistence;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

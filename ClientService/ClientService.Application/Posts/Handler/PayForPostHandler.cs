@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using AutoMapper;
 using ClientService.Application.Common.Constants;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Transactions.Models;
 using ClientService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;

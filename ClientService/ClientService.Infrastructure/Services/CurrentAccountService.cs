@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using ClientService.Application.Common.Enums;
 using ClientService.Application.Common.Exceptions;
 using ClientService.Application.Common.Interfaces;
+using ClientService.Application.Common.Persistence;
 using ClientService.Domain.Entities;
 namespace ClientService.Infrastructure.Services;
 

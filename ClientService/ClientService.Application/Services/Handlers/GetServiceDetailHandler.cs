@@ -1,4 +1,5 @@
 using AutoMapper;
+using ClientService.Application.Common.Persistence;
 using ClientService.Application.Services.Models;
 using ClientService.Application.Services.Queries;
 using Microsoft.EntityFrameworkCore;

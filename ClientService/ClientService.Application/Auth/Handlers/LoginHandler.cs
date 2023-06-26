@@ -1,5 +1,6 @@
 using ClientService.Application.Auth.Commands;
 using ClientService.Application.Auth.Models;
+using ClientService.Application.Common.Persistence;
 using Microsoft.Extensions.Logging;
 
 namespace ClientService.Application.Auth.Handlers;

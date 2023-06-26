@@ -1,4 +1,5 @@
 using ClientService.Application.Accounts.Commands;
+using ClientService.Application.Common.Persistence;
 using Microsoft.Extensions.Logging;
 
 namespace ClientService.Application.Accounts.Handlers;

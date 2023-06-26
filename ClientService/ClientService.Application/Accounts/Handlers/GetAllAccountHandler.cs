@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using AutoMapper;
 using ClientService.Application.Accounts.Models;
 using ClientService.Application.Accounts.Queries;
+using ClientService.Application.Common.Persistence;
 using ClientService.Domain.Entities;
 
 namespace ClientService.Application.Accounts.Handlers;
