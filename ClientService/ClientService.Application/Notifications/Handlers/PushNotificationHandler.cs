@@ -1,3 +1,4 @@
+using System.Text.Json;
 using ClientService.Application.Notifications.Commands;
 using ClientService.Domain.Entities;
 using Microsoft.Extensions.Logging;
@@ -29,6 +30,13 @@ public class PushNotificationHandler : IRequestHandler<PushNotificationRequest, 
 
         _notificationService.PushNotificationNotSave(notification);
 
-        return Task.FromResult(new StatusResponse(true));
+        var jsonOptions = new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
+        _logger.LogInformation("Push notification to [NotificationService]: {0}", JsonSerializer.Serialize(notification, jsonOptions));
+
+    return Task.FromResult(new StatusResponse(true));
     }
 }
