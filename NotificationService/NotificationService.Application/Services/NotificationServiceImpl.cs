@@ -21,6 +21,12 @@ public class NotificationServiceImpl : Notification.NotificationBase
     public override async Task<NotificationResponse> PushNotification(NotificationRequest request,
         ServerCallContext context)
     {
+        var jsonOptions = new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
+        _logger.LogInformation("Receive notification {0} from [ClientService]", JsonSerializer.Serialize(request, jsonOptions));
         var signalRNotification = new SignalRNotification
         {
             Id = request.Id,
@@ -44,7 +50,7 @@ public class NotificationServiceImpl : Notification.NotificationBase
         };
 
         await SendSignalRNotification(signalRNotification);
-        _logger.LogInformation("Push notification: {0}", JsonSerializer.Serialize(signalRNotification));
+        _logger.LogInformation("Push notification: {0}", JsonSerializer.Serialize(signalRNotification, jsonOptions));
         return new NotificationResponse
         {
             Status = true

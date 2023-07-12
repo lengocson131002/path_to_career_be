@@ -41,6 +41,10 @@ public class RegisterAccountHandler : IRequestHandler<RegisterAccountRequest, Ac
         if (existedAccount != null) throw new ApiException(ResponseCode.AccountErrorEmailExisted);
 
         var account = _mapper.Map<Account>(request);
+        
+        // set Accepted
+        account.IsAccepted = !Role.Freelancer.Equals(account.Role);
+        
         account.Majors = new List<Major>();
 
         // majors
