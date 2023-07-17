@@ -1,4 +1,5 @@
-﻿using ClientService.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using ClientService.Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClientService.Domain.Entities
@@ -20,6 +21,7 @@ namespace ClientService.Domain.Entities
         [ForeignKey("AcceptedAccountId")]
         public virtual Account? AcceptedAccount { get; set; }
 
+        [ConcurrencyCheck]
         public PostStatus Status { get; set; } = PostStatus.New;
         
         public long MajorId { get; set; }
@@ -55,5 +57,11 @@ namespace ClientService.Domain.Entities
         
         public Transaction? Transaction { get; set; }
         
+        public Review? Review { get; set; }
+
+        public bool CanReview => PostStatus.Accepted.Equals(Status) || PostStatus.Done.Equals(Status);
+
+        public bool CanUpdate => PostStatus.New.Equals(Status) || PostStatus.Paid.Equals(Status);
+
     }
 }

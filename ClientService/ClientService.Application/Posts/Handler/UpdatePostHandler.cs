@@ -31,6 +31,11 @@ namespace ClientService.Application.Posts.Handler
                 throw new ApiException(ResponseCode.PostNotFound);
             }
 
+            if (!post.CanUpdate)
+            {
+                throw new ApiException(ResponseCode.InvalidPostStatus);
+            }
+
             post.Title = request.Title ?? post.Title;
             post.JobPosition = request.JobPosition ?? post.JobPosition;
             post.JobLevel = request.JobLevel ?? post.JobLevel;

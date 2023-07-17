@@ -14,6 +14,7 @@ public class GetAllReviewsRequest : PaginationRequest<Review>, IRequest<Paginati
     public long? AccountId { get; set; }
 
     private string? _query;
+    
     public string? Query
     {
         get => _query;

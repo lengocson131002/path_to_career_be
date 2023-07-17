@@ -7,10 +7,12 @@ public class Review : BaseAuditableEntity
     public long Id { get; set; }
     
     public long ReviewerId { get; set; }
+    
     [ForeignKey("ReviewerId")]
     public Account Reviewer { get; set; } = default!;
     
     public long AccountId { get; set; }
+    
     [ForeignKey("AccountId")]
     public Account Account { get; set; } = default!;
     
@@ -18,4 +20,8 @@ public class Review : BaseAuditableEntity
 
     public string Content { get; set; } = default!;
     
+    public long? PostId { get; set; }
+    
+    [ForeignKey("PostId")]
+    public Post? Post { get; set; } 
 }

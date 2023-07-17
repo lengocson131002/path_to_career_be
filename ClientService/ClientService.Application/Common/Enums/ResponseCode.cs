@@ -40,7 +40,7 @@ public enum ResponseCode
     [Description("Account not found")] AccountErrorNotFound = 32,
 
     // Review
-    [Description("You had reviewed this account before")] ReviewErrorExisted = 40,
+    [Description("You had reviewed this post before")] ReviewErrorExisted = 40,
 
     [Description("Review not found")] ReviewErrorNotFound = 41,
     

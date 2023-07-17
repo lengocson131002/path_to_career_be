@@ -22,6 +22,7 @@ public class UpdateReviewRequest : IRequest<ReviewResponse>
     public double? Score { get; set; }
 
     private string? _content;
+    
     public string? Content
     {
         get => _content;

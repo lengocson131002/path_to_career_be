@@ -21,22 +21,22 @@ public class CreateReviewHandler : IRequestHandler<CreateReviewRequest, ReviewRe
 
     public async Task<ReviewResponse> Handle(CreateReviewRequest request, CancellationToken cancellationToken)
     {
-        var accountQuery = await _unitOfWork.AccountRepository.GetAsync(acc => acc.Id == request.AccountId);
-        var account = accountQuery.FirstOrDefault();
-        if (account == null || !Role.Freelancer.Equals(account.Role))
+        var currentAccount = await _currentAccountService.GetCurrentAccount();
+        var post = await _unitOfWork.PostRepository.GetByIdAsync(request.PostId);
+        if (post == null || currentAccount.Id != post.AccountId)
         {
-            throw new ApiException(ResponseCode.AccountErrorNotFound);
+            throw new ApiException(ResponseCode.PostNotFound);
+        }
+
+        if (!post.CanReview)
+        {
+            throw new ApiException(ResponseCode.InvalidPostStatus);
         }
         
-        var currentAccount = await _currentAccountService.GetCurrentAccount();
-
-        if (currentAccount.Id == request.AccountId)
-        {
-            throw new ApiException(ResponseCode.ReviewErrorCannotReviewYourself);
-        }
         // check exist review
         var reviewQuery = await _unitOfWork.ReviewRepository.GetAsync(
-            review => review.AccountId == request.AccountId && review.ReviewerId == currentAccount.Id);
+            review => review.ReviewerId == currentAccount.Id && review.PostId == request.PostId);
+        
         if (reviewQuery.Any())
         {
             throw new ApiException(ResponseCode.ReviewErrorExisted);
@@ -45,9 +45,10 @@ public class CreateReviewHandler : IRequestHandler<CreateReviewRequest, ReviewRe
         var review = new Review()
         {
             ReviewerId = currentAccount.Id,
-            AccountId = request.AccountId,
+            AccountId = (long) post.FreelancerId,
             Score = request.Score,
-            Content = request.Content
+            Content = request.Content,
+            PostId = post.Id
         };
 
         await _unitOfWork.ReviewRepository.AddAsync(review);

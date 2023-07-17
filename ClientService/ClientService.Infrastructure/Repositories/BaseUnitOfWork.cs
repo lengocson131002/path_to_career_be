@@ -1,6 +1,8 @@
+using System.Data;
 using ClientService.Application.Common.Persistence;
 using ClientService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ClientService.Infrastructure.Repositories;
 
@@ -34,6 +36,12 @@ public class BaseUnitOfWork : IBaseUnitOfWork
                     entry.State = EntityState.Detached;
                     break;
             }
+    }
+
+    public IDbTransaction BeginTransaction()
+    {
+        var transaction = _dbContext.Database.BeginTransaction();
+        return transaction.GetDbTransaction();
     }
 
     protected virtual void Dispose(bool disposing)

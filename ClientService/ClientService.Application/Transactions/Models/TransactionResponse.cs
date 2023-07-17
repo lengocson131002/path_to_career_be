@@ -20,4 +20,6 @@ public class TransactionResponse
     public long PostId { get; set; }
 
     public TransactionStatus Status { get; set; }
+    
+    public string? Content { get; set; }
 }

@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace ClientService.Application.Common.Persistence;
 
 public interface IBaseUnitOfWork
@@ -7,4 +9,6 @@ public interface IBaseUnitOfWork
     Task<int> SaveChangesAsync();
 
     void Rollback();
+
+    public IDbTransaction BeginTransaction();
 }

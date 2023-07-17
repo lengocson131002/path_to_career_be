@@ -37,7 +37,8 @@ namespace ClientService.Application.Posts.Handler
                     post => post.Account,
                     post => post.AcceptedAccount!,
                     post => post.Freelancer!,
-                    post => post.Transaction!
+                    post => post.Transaction!,
+                    post => post.Review!
                 });
             var post = await postQuery.FirstOrDefaultAsync(cancellationToken);
             
