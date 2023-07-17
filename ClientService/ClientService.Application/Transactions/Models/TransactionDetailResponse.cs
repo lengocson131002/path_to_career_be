@@ -22,4 +22,6 @@ public class TransactionDetailResponse
     public PostResponse Post { get; set; } = default!;
     
     public TransactionStatus Status { get; set; }
+    
+    public string? Content { get; set; }
 }
