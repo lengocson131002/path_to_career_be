@@ -23,63 +23,63 @@ namespace ClientService.API.Controllers
             return await Mediator.Send(request);
         }
 
-        [HttpPost("{postId}/applications")]
-        [Authorize(Roles = "Freelancer")]
-        public async Task<ActionResult<ApplyPostResponse>> Apply([FromRoute] long postId, [FromBody] ApplyPostRequest request)
-        {
-            request.PostId = postId;
-            return await Mediator.Send(request);
-        }
-
-        [HttpGet("{postId}/applications")]
-        [Authorize]
-        public async Task<ActionResult<PostApplicationListResponse>> GetAllApplication([FromRoute] long postId)
-            
-        {
-            GetAllApplicationRequest request = new GetAllApplicationRequest();
-            request.PostId = postId;
-            return await Mediator.Send(request);
-        }
-        
-        [HttpDelete("{postId}/applications")]
-        [Authorize(Roles = "Freelancer")]
-        public async Task<ActionResult<PostApplicationResponse>> CancelApplication([FromRoute] long postId)
-            
-        {
-            var request = new FreelancerCancelApplicationRequest();
-            request.PostId = postId;
-            return await Mediator.Send(request);
-        }
-
-        [HttpGet("{postId}/applications/{applicationId}")]
-        [Authorize]
-        public async Task<ActionResult<PostApplicationResponse>> GetDetail([FromRoute] long postId, [FromRoute] long applicationId)
-        {
-            GetDetailPostApplicationRequest request = new GetDetailPostApplicationRequest();
-            request.ApplicationId = applicationId;
-            request.PostId = postId;
-            return await Mediator.Send(request);
-        }
-
-        [HttpPost("{postId}/applications/{applicationId}/accept")]
-        [Authorize(Roles = "User")]
-        public async Task<ActionResult<StatusResponse>> Accept([FromRoute] long postId, [FromRoute] long applicationId)
-        {
-            AcceptApplicationRequest request = new AcceptApplicationRequest();
-            request.PostId = postId;
-            request.ApplicationId = applicationId;
-            return await Mediator.Send(request);
-        }
-
-        [HttpDelete("{postId}/applications/{applicationId}/cancel")]
-        [Authorize(Roles = "User")]
-        public async Task<ActionResult<PostApplicationResponse>> CancelApplication([FromRoute] long postId, [FromRoute] long applicationId)
-        {
-            CancelApplicationRequest request = new CancelApplicationRequest();
-            request.PostId = postId;
-            request.ApplicationId = applicationId;
-            return await Mediator.Send(request);
-        }
+        // [HttpPost("{postId}/applications")]
+        // [Authorize(Roles = "Freelancer")]
+        // public async Task<ActionResult<ApplyPostResponse>> Apply([FromRoute] long postId, [FromBody] ApplyPostRequest request)
+        // {
+        //     request.PostId = postId;
+        //     return await Mediator.Send(request);
+        // }
+        //
+        // [HttpGet("{postId}/applications")]
+        // [Authorize]
+        // public async Task<ActionResult<PostApplicationListResponse>> GetAllApplication([FromRoute] long postId)
+        //     
+        // {
+        //     GetAllApplicationRequest request = new GetAllApplicationRequest();
+        //     request.PostId = postId;
+        //     return await Mediator.Send(request);
+        // }
+        //
+        // [HttpDelete("{postId}/applications")]
+        // [Authorize(Roles = "Freelancer")]
+        // public async Task<ActionResult<PostApplicationResponse>> CancelApplication([FromRoute] long postId)
+        //     
+        // {
+        //     var request = new FreelancerCancelApplicationRequest();
+        //     request.PostId = postId;
+        //     return await Mediator.Send(request);
+        // }
+        //
+        // [HttpGet("{postId}/applications/{applicationId}")]
+        // [Authorize]
+        // public async Task<ActionResult<PostApplicationResponse>> GetDetail([FromRoute] long postId, [FromRoute] long applicationId)
+        // {
+        //     GetDetailPostApplicationRequest request = new GetDetailPostApplicationRequest();
+        //     request.ApplicationId = applicationId;
+        //     request.PostId = postId;
+        //     return await Mediator.Send(request);
+        // }
+        //
+        // [HttpPost("{postId}/applications/{applicationId}/accept")]
+        // [Authorize(Roles = "User")]
+        // public async Task<ActionResult<StatusResponse>> Accept([FromRoute] long postId, [FromRoute] long applicationId)
+        // {
+        //     AcceptApplicationRequest request = new AcceptApplicationRequest();
+        //     request.PostId = postId;
+        //     request.ApplicationId = applicationId;
+        //     return await Mediator.Send(request);
+        // }
+        //
+        // [HttpDelete("{postId}/applications/{applicationId}/cancel")]
+        // [Authorize(Roles = "User")]
+        // public async Task<ActionResult<PostApplicationResponse>> CancelApplication([FromRoute] long postId, [FromRoute] long applicationId)
+        // {
+        //     CancelApplicationRequest request = new CancelApplicationRequest();
+        //     request.PostId = postId;
+        //     request.ApplicationId = applicationId;
+        //     return await Mediator.Send(request);
+        // }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "User")]
