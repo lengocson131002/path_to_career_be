@@ -28,7 +28,7 @@ public class AccountController : ApiControllerBase
         return await Mediator.Send(request);
     }
 
-    [HttpPost("accept/{id}")]
+    [HttpPost("{id}/accept")]
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<StatusResponse>> AcceptFreelancer([FromRoute] long id)
     {
